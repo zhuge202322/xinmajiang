@@ -5,9 +5,10 @@
 :root {
   --bg: #fdf8f0;
   /* RGB triplets so they can compose with Tailwind alpha-value syntax */
-  --wine: 155 126 189;
-  --wine-dark: 123 93 168;
-  --wine-deeper: 90 64 128;
+  /* 默认配色：玫瑰粉调 #C97A8E / #A65A6F / #7E3F52 */
+  --wine: 201 122 142;
+  --wine-dark: 166 90 111;
+  --wine-deeper: 126 63 82;
   --gold: #d4af37;
 }
 

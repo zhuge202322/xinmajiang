@@ -3,11 +3,11 @@
 import { Palette, RotateCcw, X, Check } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
-// 默认色（淡紫）
+// 默认色（玫瑰粉）
 const DEFAULTS = {
-  wine: '#9B7EBD',
-  'wine-dark': '#7B5DA8',
-  'wine-deeper': '#5A4080',
+  wine: '#C97A8E',
+  'wine-dark': '#A65A6F',
+  'wine-deeper': '#7E3F52',
 };
 
 const STORAGE_KEY = 'luundy-theme-v1';
