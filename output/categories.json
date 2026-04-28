@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "folding-4mouth",
+    "name": "折叠款四口机",
+    "url": "https://www.luundy.com/product-category/folding-4mouth/",
+    "products": [
+      "https://www.luundy.com/product/%e6%98%93%e9%94%a660/",
+      "https://www.luundy.com/product/canhong52zhedie/",
+      "https://www.luundy.com/product/fuyunzhedie/",
+      "https://www.luundy.com/product/lewanjiazhedie/",
+      "https://www.luundy.com/product/ruyizhedie/"
+    ]
+  },
+  {
+    "slug": "folding-rotary",
+    "name": "折叠款旋翼机",
+    "url": "https://www.luundy.com/product-category/folding-rotary/",
+    "products": [
+      "https://www.luundy.com/product/%e5%90%89%e7%a5%a5%e6%8a%98%e5%8f%a0/",
+      "https://www.luundy.com/product/a8/",
+      "https://www.luundy.com/product/canhong52xyj/"
+    ]
+  },
+  {
+    "slug": "table-4mouth",
+    "name": "餐桌款四口机",
+    "url": "https://www.luundy.com/product-category/table-4mouth/",
+    "products": [
+      "https://www.luundy.com/product/%e6%98%93%e9%94%a660%e9%a4%90%e6%a1%8c/",
+      "https://www.luundy.com/product/canhong52canzhuo/",
+      "https://www.luundy.com/product/fuyucanzhuo/",
+      "https://www.luundy.com/product/ruyicanzhuo/"
+    ]
+  },
+  {
+    "slug": "table-rotary",
+    "name": "餐桌款旋翼机",
+    "url": "https://www.luundy.com/product-category/table-rotary/",
+    "products": [
+      "https://www.luundy.com/product/a8canzhuo/",
+      "https://www.luundy.com/product/jixiangzhedie/"
+    ]
+  },
+  {
+    "slug": "outdoor",
+    "name": "户外麻将机",
+    "url": "https://www.luundy.com/product-category/outdoor/",
+    "products": []
+  }
+]

@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+.env*.local
+*.log
+.DS_Store
+
+# 本地参考素材，不上传仓库
+新建文件夹/
+*.tsbuildinfo

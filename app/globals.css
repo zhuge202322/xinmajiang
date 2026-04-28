@@ -1,0 +1,133 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #fdf8f0;
+  /* RGB triplets so they can compose with Tailwind alpha-value syntax */
+  --wine: 155 126 189;
+  --wine-dark: 123 93 168;
+  --wine-deeper: 90 64 128;
+  --gold: #d4af37;
+}
+
+html,
+body {
+  background-color: var(--bg);
+  color: rgb(var(--wine-dark));
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 装饰小标签：◆ 文本 ◆ */
+.pill-decor {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 22px;
+  border: 1px solid #d4af37;
+  border-radius: 9999px;
+  color: #b08a1f;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.4);
+}
+.pill-decor::before,
+.pill-decor::after {
+  content: '✦';
+  color: #d4af37;
+  font-size: 12px;
+}
+
+/* 红底章节里的装饰小标签 */
+.pill-decor-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 22px;
+  border: 1px solid #d4af37;
+  border-radius: 9999px;
+  color: #e8c766;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.15);
+}
+.pill-decor-dark::before,
+.pill-decor-dark::after {
+  content: '✦';
+  color: #d4af37;
+  font-size: 12px;
+}
+
+/* 金色描边按钮 */
+.btn-gold {
+  background: #d4af37;
+  color: rgb(var(--wine-deeper));
+  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.35);
+}
+
+.btn-wine {
+  background: rgb(var(--wine-deeper));
+  color: #fff;
+  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-wine:hover {
+  background: rgb(var(--wine-dark));
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgb(var(--wine-deeper) / 0.35);
+}
+
+.btn-wine-outline {
+  background: #fff;
+  color: rgb(var(--wine-deeper));
+  font-weight: 500;
+  padding: 14px 28px;
+  border-radius: 8px;
+  border: 1px solid rgb(var(--wine-dark));
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.btn-wine-outline:hover {
+  transform: translateY(-1px);
+}
+
+/* 菱格底纹 - 用作大区块背景 */
+.diamond-bg {
+  background-color: #fdf8f0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%23D4AF37' stroke-width='0.7' opacity='0.28'><path d='M40 0 L80 40 L40 80 L0 40 Z'/><path d='M40 14 L66 40 L40 66 L14 40 Z'/></g></svg>");
+}
+.diamond-bg-dark {
+  background-color: rgb(var(--wine-deeper));
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%23D4AF37' stroke-width='0.7' opacity='0.18'><path d='M40 0 L80 40 L40 80 L0 40 Z'/><path d='M40 14 L66 40 L40 66 L14 40 Z'/></g></svg>");
+}
+
+/* 圆角金边卡片 */
+.card-gold {
+  background: #fff;
+  border: 1px solid #e8c766;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgb(var(--wine-deeper) / 0.10);
+}
+
+/* 渐变文字（红→金） */
+.text-gradient {
+  background: linear-gradient(90deg, rgb(var(--wine-dark)) 0%, rgb(var(--wine)) 50%, #b08a1f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
