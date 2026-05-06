@@ -12,8 +12,8 @@ export default function AboutPage() {
   return (
     <main>
       <PageHero
-        title="关于 Luundy"
-        enTitle="About Luundy"
+        title="关于 ZHONGQUE"
+        enTitle="About ZHONGQUE"
         desc="专为海外华人打造的高端麻将机品牌，传承经典，创新体验。"
         tone="gold"
       />
@@ -21,7 +21,7 @@ export default function AboutPage() {
       <section className="diamond-bg py-16">
         <div className="mx-auto max-w-3xl px-8 text-center text-wine-dark/85">
           <p className="text-[16px] leading-[1.9]">
-            Luundy 起源于一个简单的愿望——让海外华人在异国他乡也能享受到一桌好麻将带来的家庭温情。
+            ZHONGQUE 起源于一个简单的愿望——让海外华人在异国他乡也能享受到一桌好麻将带来的家庭温情。
           </p>
           <p className="mt-4 text-[16px] leading-[1.9]">
             我们与中国头部自动麻将机工厂合作，为北美客户量身定制 110V 电压、英文操作面板、

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   ShoppingBag,
   Check,
@@ -258,9 +259,11 @@ export default function ProductConfigurator({
   product: Product;
   steps: ConfigStep[];
 }) {
+  const router = useRouter();
   const [picked, setPicked] = useState<Record<string, string>>({});
   const [stage, setStage] = useState(0);
   const [chatInput, setChatInput] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const allDone = steps.length > 0 && steps.every((s) => picked[s.key]);
 
@@ -274,6 +277,65 @@ export default function ProductConfigurator({
   );
 
   const finalPrice = product.price + totalAddOn;
+
+  // Build configuration details for cart
+  const configuration = useMemo(() => {
+    return steps.reduce((config, s) => {
+      const opt = s.options.find((o) => o.id === picked[s.key]);
+      if (opt) {
+        config[s.key] = {
+          label: opt.label,
+          price: opt.price ?? 0,
+          id: opt.id,
+        };
+      }
+      return config;
+    }, {} as Record<string, { label: string; price: number; id: string }>);
+  }, [picked, steps]);
+
+  const addToCart = () => {
+    // Get existing cart
+    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const existingProducts = JSON.parse(localStorage.getItem('cartProducts') || '[]');
+
+    // Check if this exact configuration already exists
+    const configKey = JSON.stringify(configuration);
+    const existingIndex = existingCart.findIndex(
+      (item: any) => item.slug === product.slug && item.configKey === configKey
+    );
+
+    const cartItem = {
+      slug: product.slug,
+      qty: 1,
+      configKey,
+      configuration,
+      price: finalPrice,
+      productName: product.name,
+      image: product.images[0],
+      color: product.color,
+    };
+
+    if (existingIndex >= 0) {
+      // Update quantity if same configuration exists
+      existingCart[existingIndex].qty += 1;
+      existingProducts[existingIndex].qty += 1;
+    } else {
+      // Add new item
+      existingCart.push(cartItem);
+      existingProducts.push(cartItem);
+    }
+
+    // Save to localStorage
+    localStorage.setItem('cart', JSON.stringify(existingCart));
+    localStorage.setItem('cartProducts', JSON.stringify(existingProducts));
+
+    // Dispatch event to update cart count in header
+    window.dispatchEvent(new Event('cart-updated'));
+
+    // Show success message
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 3000);
+  };
 
   const select = (stepIdx: number, opt: ConfigOption) => {
     const step = steps[stepIdx];
@@ -319,7 +381,7 @@ export default function ProductConfigurator({
 
       <div className="space-y-6">
         <BotBubble>
-          您好，我是 <span className="font-medium text-wine">Luundy 麻将助手</span>
+          您好，我是 <span className="font-medium text-wine">ZHONGQUE 麻将助手</span>
         </BotBubble>
         <BotBubble>
           接下来我会引导您完成麻将机个性化配置，只需选择几个简单的问题对应的选项，
@@ -471,9 +533,18 @@ export default function ProductConfigurator({
                 </table>
               </div>
 
-              <button className="btn-wine mt-5 w-full justify-center text-[15px]">
+              <button
+                onClick={addToCart}
+                className="btn-wine mt-5 w-full justify-center text-[15px]"
+              >
                 <ShoppingBag size={18} /> 加入购物车
               </button>
+
+              {showSuccess && (
+                <div className="mt-3 rounded-md bg-emerald-100 p-3 text-center text-[13px] text-emerald-700">
+                  已加入购物车！<a href="/cart" className="underline">查看购物车</a>
+                </div>
+              )}
 
               <div className="mt-3 grid grid-cols-2 gap-3">
                 <button className="inline-flex items-center justify-center gap-2 rounded-md border border-gold/50 bg-white px-4 py-2.5 text-[13px] text-wine-dark hover:border-wine hover:text-wine">

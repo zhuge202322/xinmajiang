@@ -1,69 +1,197 @@
-import { Search, MapPin, Building2, Warehouse, Phone, Clock } from 'lucide-react';
+'use client';
+import { Search, MapPin, Building2, Warehouse, Phone, Clock, MessageCircle, Mail } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
+
+const Map = dynamic(() => import('@/components/Map'), { ssr: false });
+
+type MapLocation = {
+  name: string;
+  address: string;
+  lat: number;
+  lng: number;
+  isOfficial?: boolean;
+  type: string;
+};
 
 const dealers = [
   {
-    region: '洛杉矶地区',
-    count: 2,
+    region: '美国',
+    count: 7,
     items: [
       {
-        type: '官方仓库',
-        name: 'Luundy 洛杉矶仓',
-        address: '8888 Industrial Way, Los Angeles, CA 90001',
-        phone: '+1 (213) 555-0188',
-        hours: '周一至周日 9:00–18:00 PST',
+        type: '仓库',
+        name: '纽约布鲁克林',
+        address: '17 County loop, Staten Island, NY',
+        phone: '+1 (669) 721-9311',
+        wechat: 'az134mj',
+        email: 'houchang110505@gmail.com',
+        hours: '周一至周日 9:00–18:00',
         stock: '库存充足',
         official: true,
+        lat: 40.5795,
+        lng: -74.1502,
       },
       {
-        type: '授权经销商',
-        name: '华美家居 LA 旗舰店',
-        address: '1234 Garvey Ave, Monterey Park, CA 91754',
-        phone: '+1 (626) 555-0123',
-        hours: '周一至周六 10:00–19:00',
+        type: '经销商',
+        name: '纽约法拉盛',
+        address: 'Kissena Blvd, Flushing, NY 11367',
+        phone: '+1 (669) 721-9311',
+        wechat: 'az134mj',
+        email: 'houchang110505@gmail.com',
+        hours: '周一至周日 10:00–19:00',
         stock: '库存充足',
-      },
-    ],
-  },
-  {
-    region: '纽约地区',
-    count: 2,
-    items: [
-      {
-        type: '官方仓库',
-        name: 'Luundy 纽约仓',
-        address: '50-12 Northern Blvd, Long Island City, NY 11101',
-        phone: '+1 (718) 555-0144',
-        hours: '周一至周日 9:00–18:00 EST',
-        stock: '库存充足',
-        official: true,
+        official: false,
+        lat: 40.7282,
+        lng: -73.7949,
       },
       {
-        type: '授权经销商',
-        name: '法拉盛旗舰展厅',
-        address: '136-20 38th Ave, Flushing, NY 11354',
-        phone: '+1 (917) 555-0155',
-        hours: '每天 10:00–20:00',
+        type: '经销商',
+        name: '洛杉矶经销商',
+        address: '13963 Amar Rd, La Puente, CA 91746',
+        phone: '+1 (669) 721-9311',
+        wechat: 'az134mj',
+        email: 'houchang110505@gmail.com',
+        hours: '周一至周日 10:00–19:00',
         stock: '可订货',
+        official: false,
+        lat: 34.0276,
+        lng: -117.9511,
+      },
+      {
+        type: '仓库',
+        name: '新泽西仓库',
+        address: '45 Fernwood Ave, Suite D, Edison, NJ 08837',
+        phone: '+1 (669) 721-9311',
+        wechat: 'az134mj',
+        email: 'houchang110505@gmail.com',
+        hours: '周一至周日 9:00–18:00',
+        stock: '库存充足',
+        official: true,
+        lat: 40.5187,
+        lng: -74.4121,
+      },
+      {
+        type: '仓库',
+        name: '洛杉矶仓库',
+        address: '2440 S. Milliken Avenue, Ontario, CA 91761',
+        phone: '+1 (669) 721-9311',
+        wechat: 'az134mj',
+        email: 'houchang110505@gmail.com',
+        hours: '周一至周日 9:00–18:00',
+        stock: '库存充足',
+        official: true,
+        lat: 34.0125,
+        lng: -117.5927,
+      },
+      {
+        type: '仓库',
+        name: '奥克兰仓库',
+        address: '1997 Davis St, San Leandro, CA 94577',
+        phone: '+1 (669) 721-9311',
+        wechat: 'az134mj',
+        email: 'houchang110505@gmail.com',
+        hours: '周一至周日 9:00–18:00',
+        stock: '库存充足',
+        official: true,
+        lat: 37.7254,
+        lng: -122.1604,
+      },
+      {
+        type: '经销商',
+        name: '休斯顿',
+        address: '5615 W Fuqua St Unit C-100, Houston, TX 77085',
+        phone: '+1 (669) 721-9311',
+        wechat: 'az134mj',
+        email: 'houchang110505@gmail.com',
+        hours: '周一至周日 10:00–19:00',
+        stock: '可订货',
+        official: false,
+        lat: 29.6126,
+        lng: -95.4769,
       },
     ],
   },
   {
-    region: '休斯顿地区',
+    region: '澳洲',
+    count: 3,
+    items: [
+      {
+        type: '经销商',
+        name: '悉尼',
+        address: '8/40 Brodie St Rydalmer NSW 2116 AU',
+        phone: '+1 (669) 721-9311',
+        wechat: 'az134mj',
+        email: 'houchang110505@gmail.com',
+        hours: '周一至周六 10:00–18:00',
+        stock: '可订货',
+        official: false,
+        lat: -33.8688,
+        lng: 151.2093,
+      },
+      {
+        type: '经销商',
+        name: '墨尔本',
+        address: 'Building J, 413 Francis St Brooklyn VIC 3012',
+        phone: '+1 (669) 721-9311',
+        wechat: 'az134mj',
+        email: 'houchang110505@gmail.com',
+        hours: '周一至周六 10:00–18:00',
+        stock: '可订货',
+        official: false,
+        lat: -37.8136,
+        lng: 144.9631,
+      },
+      {
+        type: '经销商',
+        name: '布里斯班',
+        address: '51 Mangrave Rd Coopers Plains QLD AU',
+        phone: '+1 (669) 721-9311',
+        wechat: 'az134mj',
+        email: 'houchang110505@gmail.com',
+        hours: '周一至周六 10:00–18:00',
+        stock: '可订货',
+        official: false,
+        lat: -27.4698,
+        lng: 153.0251,
+      },
+    ],
+  },
+  {
+    region: '加拿大',
     count: 1,
     items: [
       {
-        type: '授权经销商',
-        name: '德州中华家具',
-        address: '9889 Bellaire Blvd, Houston, TX 77036',
-        phone: '+1 (713) 555-0166',
-        hours: '周一至周日 10:00–19:00 CST',
+        type: '经销商',
+        name: '多伦多',
+        address: 'A2-350 Hunter\'s Valley Rd, Kleinburg, ON L4H 3N6',
+        phone: '+1 (669) 721-9311',
+        wechat: 'az134mj',
+        email: 'houchang110505@gmail.com',
+        hours: '周一至周日 10:00–18:00',
         stock: '可订货',
+        official: false,
+        lat: 43.8561,
+        lng: -79.5183,
       },
     ],
   },
 ];
 
+const allLocations: MapLocation[] = dealers.flatMap((g) =>
+  g.items.map((it) => ({
+    name: it.name,
+    address: it.address,
+    lat: it.lat,
+    lng: it.lng,
+    isOfficial: it.official,
+    type: it.type,
+  }))
+);
+
 export default function DealerLocatorPage() {
+  const [selectedLocation, setSelectedLocation] = useState<MapLocation | null>(null);
+
   return (
     <main className="diamond-bg py-10">
       {/* 头部红卡 */}
@@ -72,14 +200,14 @@ export default function DealerLocatorPage() {
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div>
               <h1 className="font-serif text-[40px] font-medium">
-                寻找您身边的 <span className="text-gold-light">Luundy</span>
+                寻找您身边的 <span className="text-gold-light">ZHONGQUE</span>
               </h1>
               <p className="mt-2 text-[14px] text-cream/80">
                 查看全美授权经销商与自提仓库位置
               </p>
             </div>
             <div className="inline-flex items-center gap-2 rounded-full border border-gold/50 bg-wine-deeper px-4 py-2 text-[14px] text-gold-light">
-              <MapPin size={16} /> 全美 5 个服务点
+              <MapPin size={16} /> 全球 11 个服务点
             </div>
           </div>
         </div>
@@ -121,51 +249,41 @@ export default function DealerLocatorPage() {
 
         {/* 右：地图 + 列表卡 */}
         <div className="lg:col-span-2 space-y-5">
-          {/* 简化美国地图占位 */}
-          <div className="card-gold relative overflow-hidden">
-            <div className="aspect-[16/8] bg-cream2">
-              <svg viewBox="0 0 800 400" className="h-full w-full">
-                <defs>
-                  <linearGradient id="usbg" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#f5ead8" />
-                    <stop offset="100%" stopColor="#d8c79a" />
-                  </linearGradient>
-                </defs>
-                <rect width="800" height="400" fill="url(#usbg)" />
-                {/* 简化美国轮廓 */}
-                <path
-                  d="M80 130 L160 90 L260 100 L380 80 L520 100 L640 110 L720 150 L730 220 L680 280 L580 320 L420 340 L300 320 L180 290 L100 240 Z"
-                  fill="#fff"
-                  stroke="#D4AF37"
-                  strokeWidth="1.5"
-                />
-                {/* 标记点 */}
-                {[
-                  { x: 150, y: 220, label: 'LA' },
-                  { x: 660, y: 160, label: 'NY' },
-                  { x: 380, y: 280, label: 'HOU' },
-                ].map((m) => (
-                  <g key={m.label} transform={`translate(${m.x} ${m.y})`}>
-                    <circle r="14" fill="#9B7EBD" />
-                    <text
-                      y="4"
-                      textAnchor="middle"
-                      fill="#fff"
-                      fontSize="9"
-                      fontWeight="bold"
-                    >
-                      {m.label}
-                    </text>
-                  </g>
-                ))}
-              </svg>
-            </div>
+          {/* Google 地图 */}
+          <div className="card-gold overflow-hidden p-4">
+            <Map
+              locations={allLocations}
+              selectedLocation={selectedLocation}
+              onMarkerClick={setSelectedLocation}
+              height="380px"
+            />
           </div>
 
           {/* 经销商详细卡片 */}
           {dealers.flatMap((g) =>
             g.items.map((it) => (
-              <div key={it.name} className="card-gold p-5">
+              <div
+                key={it.name}
+                className={`card-gold cursor-pointer p-5 transition-all ${
+                  selectedLocation?.name === it.name
+                    ? 'ring-2 ring-gold shadow-lg'
+                    : 'hover:shadow-md'
+                }`}
+                onClick={() =>
+                  setSelectedLocation(
+                    selectedLocation?.name === it.name
+                      ? null
+                      : {
+                          name: it.name,
+                          address: it.address,
+                          lat: it.lat,
+                          lng: it.lng,
+                          isOfficial: it.official,
+                          type: it.type,
+                        }
+                  )
+                }
+              >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3">
                     <div
@@ -188,14 +306,27 @@ export default function DealerLocatorPage() {
                           <Phone size={12} /> {it.phone}
                         </span>
                         <span className="inline-flex items-center gap-1">
-                          <Clock size={12} /> {it.hours}
+                          <MessageCircle size={12} /> {it.wechat}
                         </span>
+                        <span className="inline-flex items-center gap-1">
+                          <Mail size={12} /> {it.email}
+                        </span>
+                      </div>
+                      <div className="mt-2 flex items-center gap-1 text-[12px] text-wine-dark/70">
+                        <Clock size={12} /> {it.hours}
                       </div>
                     </div>
                   </div>
-                  <span className="rounded-full bg-gold/15 px-3 py-1 text-[12px] text-wine">
-                    {it.stock}
-                  </span>
+                  <div className="flex flex-col items-end gap-2">
+                    <span className="rounded-full bg-gold/15 px-3 py-1 text-[12px] text-wine">
+                      {it.stock}
+                    </span>
+                    {selectedLocation?.name === it.name && (
+                      <span className="rounded-full bg-wine px-3 py-1 text-[11px] text-gold">
+                        地图定位中
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             ))
@@ -207,7 +338,7 @@ export default function DealerLocatorPage() {
       <section className="mx-auto mt-16 max-w-[1280px] px-8">
         <div className="rounded-2xl border border-gold/40 bg-gradient-to-r from-cream2 to-cream p-10 text-center shadow-card">
           <h2 className="font-serif text-[32px] font-medium text-wine-dark">
-            成为 Luundy 授权经销商
+            成为 ZHONGQUE 授权经销商
           </h2>
           <p className="mx-auto mt-3 max-w-2xl text-[14px] text-wine-dark/75">
             我们正在全美范围内寻找优质的家居家电合作伙伴。提供具有竞争力的代理价、市场支持与培训资源。

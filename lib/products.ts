@@ -159,6 +159,13 @@ function shortenDesc(s: string, n = 60) {
   return head.length > n ? head.slice(0, n) + '…' : head;
 }
 
+const PRODUCT_SLUG_OVERRIDES: Record<string, string> = {
+  吉祥折叠麻将机: 'jixiangzhedie',
+  吉祥餐桌麻将机: 'jixiangcanzhuo',
+  易锦60折叠麻将机: 'yijin60zhedie',
+  易锦60餐桌麻将机: 'yijin60canzhuo',
+};
+
 export const products: Product[] = (productsJson as RawProduct[])
   .filter((p) => p && p.slug)
   .map((p) => {
@@ -169,7 +176,7 @@ export const products: Product[] = (productsJson as RawProduct[])
     const firstBody = p.options?.body_color?.[0]?.code ?? '';
     const color = BODY_SWATCH[firstBody] ?? '#7B5DA8';
     return {
-      slug: p.slug,
+      slug: PRODUCT_SLUG_OVERRIDES[p.title] ?? p.slug,
       name: p.title,
       shortDesc: shortenDesc(p.description, 80),
       description: p.description ?? '',

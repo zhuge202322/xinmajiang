@@ -1,4 +1,8 @@
 import { MapPin, Search } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+
+const Map = dynamic(() => import('./Map'), { ssr: false });
 
 const stats = [
   { num: '3000+', label: '全年销售' },
@@ -11,62 +15,23 @@ export default function Dealers() {
     <section className="diamond-bg py-20">
       <div className="mx-auto max-w-[1280px] px-8 text-center">
         <h2 className="font-serif text-[40px] font-medium text-wine-dark">
-          寻找您身边的 Luundy
+          寻找您身边的 ZHONGQUE
         </h2>
         <p className="mt-3 text-[15px] text-wine-dark/70">
           查看全美所有经销商与自提仓库位置
         </p>
 
         {/* 地图卡片 */}
-        <div className="card-gold mt-12 px-6 py-10">
+        <div className="card-gold mt-12 px-6 py-6">
           <p className="text-[14px] text-wine-dark/70">全美所有经销商与仓库分布图</p>
 
-          <div className="relative mx-auto mt-6 h-[260px] max-w-[760px]">
-            {/* 美国地图风格的 SVG 占位 */}
-            <svg viewBox="0 0 760 260" className="h-full w-full">
-              <ellipse
-                cx="380"
-                cy="130"
-                rx="320"
-                ry="100"
-                fill="none"
-                stroke="#D4AF37"
-                strokeWidth="0.8"
-                opacity="0.5"
-              />
-              <ellipse
-                cx="380"
-                cy="130"
-                rx="240"
-                ry="70"
-                fill="none"
-                stroke="#D4AF37"
-                strokeWidth="0.6"
-                opacity="0.4"
-              />
-              {/* 中央地图图标 */}
-              <g transform="translate(340 95)">
-                <rect width="80" height="80" rx="12" fill="#FAF1E0" stroke="#D4AF37" />
-                <path
-                  d="M40 22 Q24 22 24 38 Q24 52 40 62 Q56 52 56 38 Q56 22 40 22 Z"
-                  fill="#9B7EBD"
-                />
-                <circle cx="40" cy="38" r="6" fill="#fff" />
-              </g>
-            </svg>
-
-            {/* 标记点 */}
-            <span className="absolute left-[15%] top-[55%] flex items-center gap-1 rounded-full bg-wine px-3 py-1 text-[12px] text-cream">
-              <MapPin size={12} className="text-gold" /> 洛杉矶仓
-            </span>
-            <span className="absolute right-[15%] top-[45%] flex items-center gap-1 rounded-full bg-wine px-3 py-1 text-[12px] text-cream">
-              <MapPin size={12} className="text-gold" /> 纽约仓
-            </span>
+          <div className="relative mx-auto mt-6">
+            <Map height="300px" />
           </div>
 
-          <button className="btn-wine mt-8">
+          <Link href="/dealer-locator" className="btn-wine mt-8 inline-flex">
             <Search size={16} /> 搜索附近位置
-          </button>
+          </Link>
         </div>
 
         {/* 数字统计 */}

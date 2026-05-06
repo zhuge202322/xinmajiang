@@ -11,7 +11,7 @@ export default function BlogIndexPage() {
           {/* 头部卡片 */}
           <section className="rounded-2xl border-l-4 border-gold bg-gradient-to-br from-cream2 to-cream p-8 shadow-card">
             <span className="inline-block rounded-full bg-wine/10 px-3 py-1 text-[12px] text-wine">
-              Luundy 博客
+              ZHONGQUE 博客
             </span>
             <h1 className="mt-4 font-serif text-[40px] font-medium text-wine-dark">
               传承中式生活美学
@@ -97,12 +97,12 @@ export default function BlogIndexPage() {
             <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-wine">
               <span className="font-serif text-[36px] text-gold-light">L</span>
             </div>
-            <h3 className="mt-4 font-serif text-[20px] font-medium text-wine">Luundy</h3>
+            <h3 className="mt-4 font-serif text-[20px] font-medium text-wine">ZHONGQUE</h3>
             <p className="mt-2 text-[13px] text-gold">
               专为海外华人传承的中式生活美学
             </p>
             <p className="mt-3 text-[13px] text-wine-dark/70">
-              Luundy 致力于为全球华人家庭提供高品质的自动麻将机，让传统文化在海外延续。
+              ZHONGQUE 致力于为全球华人家庭提供高品质的自动麻将机，让传统文化在海外延续。
             </p>
             <button className="btn-wine mt-5 w-full justify-center text-[13px]">
               小红书关注

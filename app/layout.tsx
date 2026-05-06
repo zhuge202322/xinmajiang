@@ -3,6 +3,7 @@ import { Noto_Sans_SC, Noto_Serif_SC } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ThemePicker from '@/components/ThemePicker';
+import { AuthProvider } from '@/contexts/AuthContext';
 import './globals.css';
 
 const notoSans = Noto_Sans_SC({
@@ -20,9 +21,9 @@ const notoSerif = Noto_Serif_SC({
 });
 
 export const metadata: Metadata = {
-  title: '自动麻将机 Automatic Mahjong Table | Luundy',
+  title: '自动麻将机 Automatic Mahjong Table | ZHONGQUE',
   description:
-    'Luundy 自动麻将机专卖店，美国华人首选麻将桌品牌。静音折叠自动麻将机，全美免费配送，一年质保。',
+    'ZHONGQUE 自动麻将机专卖店，美国华人首选麻将桌品牌。静音折叠自动麻将机，全美免费配送，一年质保。',
 };
 
 export default function RootLayout({
@@ -33,10 +34,12 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" className={`${notoSans.variable} ${notoSerif.variable}`}>
       <body className="font-sans">
-        <Header />
-        {children}
-        <Footer />
-        <ThemePicker />
+        <AuthProvider>
+          <Header />
+          {children}
+          <Footer />
+          <ThemePicker />
+        </AuthProvider>
       </body>
     </html>
   );

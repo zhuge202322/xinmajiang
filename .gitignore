@@ -2,9 +2,13 @@ node_modules
 .next
 out
 .env*.local
+.env
 *.log
 .DS_Store
 
 # 本地参考素材，不上传仓库
 新建文件夹/
 *.tsbuildinfo
+
+/lib/generated/prisma
+public/img/hero.mp4

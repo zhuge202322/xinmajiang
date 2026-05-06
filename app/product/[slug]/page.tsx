@@ -1,19 +1,27 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { products, getProduct, getCategory } from '@/lib/products';
+import {
+  catalogProducts,
+  getAllStorefrontProducts,
+  getStorefrontCategory,
+  getStorefrontProduct,
+} from '@/lib/storefront-products';
 import ProductImage from '@/components/ProductImage';
 import { getStepsForProduct } from '@/lib/configurator';
 import ProductConfigurator from './config-client';
 
+export const dynamic = 'force-dynamic';
+
 export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
+  return catalogProducts.map((p) => ({ slug: p.slug }));
 }
 
-export default function ProductPage({ params }: { params: { slug: string } }) {
-  const p = getProduct(params.slug);
+export default async function ProductPage({ params }: { params: { slug: string } }) {
+  const p = await getStorefrontProduct(params.slug);
   if (!p) notFound();
-  const cat = getCategory(p.category);
+  const cat = await getStorefrontCategory(p.category);
   const steps = getStepsForProduct(p);
+  const products = await getAllStorefrontProducts();
 
   return (
     <main className="diamond-bg pb-16">

@@ -1,21 +1,27 @@
 import Link from 'next/link';
 import { ArrowRight, ShieldCheck, Truck, Headphones, Star } from 'lucide-react';
-import { categories, products } from '@/lib/products';
+import { categories, getAllStorefrontProducts } from '@/lib/storefront-products';
 import PageHero from '@/components/PageHero';
 import ProductImage from '@/components/ProductImage';
 
 export const metadata = {
-  title: '商店 Shop | Luundy 自动麻将机',
-  description: 'Luundy 全系列自动麻将机：折叠款、餐桌款、旋翼机芯、户外便携，应有尽有。',
+  title: '商店 Shop | ZHONGQUE 自动麻将机',
+  description: 'ZHONGQUE 全系列自动麻将机：折叠款、餐桌款、旋翼机芯、户外便携，应有尽有。',
 };
 
-export default function ShopPage() {
-  const featured = products.slice(0, 3);
+export const dynamic = 'force-dynamic';
+
+export default async function ShopPage() {
+  const products = await getAllStorefrontProducts();
+  const validProducts = products.filter(
+    (p) => p.slug && !/[^\x00-\x7F]/.test(p.slug) && p.price > 0
+  );
+  const featured = validProducts.slice(0, 3);
 
   return (
     <main>
       <PageHero
-        title="Luundy 商店"
+        title="ZHONGQUE 商店"
         enTitle="Shop · 全系列自动麻将机"
         desc="折叠款、餐桌款、旋翼机芯、户外便携——总有一款适合您家。全美包邮，一年质保。"
         tone="gold"
@@ -34,7 +40,8 @@ export default function ShopPage() {
 
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((c) => {
-              const sample = products.find((p) => p.category === c.slug);
+              const sample = products.find((p) => p.category === c.slug && p.price > 0 && !/[^\x00-\x7F]/.test(p.slug));
+              if (!sample) return null;
               return (
                 <Link
                   key={c.slug}

@@ -14,7 +14,7 @@ export const policies: Record<string, PolicyDoc> = {
     enTitle: 'Refund & After-sales Policy',
     effective: '2025年1月1日',
     intro:
-      '感谢您选择 Luundy 高端麻将机。鉴于海运大型家具的特殊性质（单台重量约 100 公斤），请您在下单前务必仔细阅读以下退换货政策。我们承诺以最优质的售后服务保障您的权益。',
+      '感谢您选择 ZHONGQUE 高端麻将机。鉴于海运大型家具的特殊性质（单台重量约 100 公斤），请您在下单前务必仔细阅读以下退换货政策。我们承诺以最优质的售后服务保障您的权益。',
     sections: [
       {
         heading: '一、发货前取消订单',
@@ -35,7 +35,7 @@ export const policies: Record<string, PolicyDoc> = {
       {
         heading: '三、商品质量问题',
         body: [
-          '若签收后 30 天内发现明显质量问题，Luundy 将免费安排上门维修或更换部件。',
+          '若签收后 30 天内发现明显质量问题，ZHONGQUE 将免费安排上门维修或更换部件。',
           '请在签收后 24 小时内拍摄完整开箱视频以备维权使用。',
         ],
       },
@@ -55,12 +55,12 @@ export const policies: Record<string, PolicyDoc> = {
     enTitle: 'Warranty Terms',
     effective: '2025年1月1日',
     intro:
-      'Luundy 承诺为所有自动麻将机产品提供整机一年质保 + 核心机芯终身质保服务。',
+      'ZHONGQUE 承诺为所有自动麻将机产品提供整机一年质保 + 核心机芯终身质保服务。',
     sections: [
       {
         heading: '一、整机一年质保',
         body: [
-          '自签收日起 365 天内，非人为损坏的故障 Luundy 免费维修。',
+          '自签收日起 365 天内，非人为损坏的故障 ZHONGQUE 免费维修。',
           '常见配件（电机、传感器、PCB 主板）一年内免费更换。',
         ],
         highlight: '一年整机质保',
@@ -96,7 +96,7 @@ export const policies: Record<string, PolicyDoc> = {
     enTitle: 'Shipping Policy',
     effective: '2025年1月1日',
     intro:
-      'Luundy 提供两种灵活的配送方式：海运直达与仓库自提，全美 48 州免费配送。',
+      'ZHONGQUE 提供两种灵活的配送方式：海运直达与仓库自提，全美 48 州免费配送。',
     sections: [
       {
         heading: '一、海运直达',
@@ -138,7 +138,7 @@ export const policies: Record<string, PolicyDoc> = {
     enTitle: 'Privacy Policy',
     effective: '2025年1月1日',
     intro:
-      'Luundy 重视您的隐私。本政策说明我们如何收集、使用与保护您的个人信息。',
+      'ZHONGQUE 重视您的隐私。本政策说明我们如何收集、使用与保护您的个人信息。',
     sections: [
       {
         heading: '一、我们收集的信息',
@@ -159,7 +159,7 @@ export const policies: Record<string, PolicyDoc> = {
       {
         heading: '三、第三方共享',
         body: [
-          'Luundy 不会出售您的个人信息。',
+          'ZHONGQUE 不会出售您的个人信息。',
           '仅在以下场景与第三方共享：物流服务商（仅地址 / 电话）、支付网关（PayPal / Stripe）、法律要求。',
         ],
       },

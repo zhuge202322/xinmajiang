@@ -1,0 +1,1150 @@
+{
+  "users": [
+    {
+      "id": "user_admin001",
+      "email": "admin@luundy.com",
+      "password": "admin123",
+      "displayName": "管理员",
+      "phone": "189-6909-4808",
+      "isAdmin": true,
+      "createdAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "user_motlcjkna6m1f6",
+      "email": "zhuge202322@gmail.com",
+      "password": "691f190aff9416ef9e5bf894561fdfa07eb2b0806363b9caf6ac76dddc5cc583",
+      "displayName": "dd",
+      "isAdmin": false,
+      "createdAt": "2026-05-06T05:02:42.455Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "prod_001",
+      "slug": "yihao",
+      "name": "易号60",
+      "shortDesc": "四口经典结构，轻松折叠收纳",
+      "description": "易号60采用四口经典机芯设计，静音洗牌，适合家庭使用。",
+      "category": "folding-4mouth",
+      "categoryName": "折叠款四口机",
+      "price": 599,
+      "originalPrice": 749,
+      "color": "#7B5DA8",
+      "features": [
+        "静音洗牌",
+        "四口机芯",
+        "折叠设计",
+        "万向轮移动"
+      ],
+      "options": {
+        "body_color": [
+          "moonlight-white",
+          "champagne",
+          "deep-space-gray",
+          "noble-blue",
+          "amber-orange"
+        ],
+        "table_color": [
+          "gray",
+          "green",
+          "khaki",
+          "pink"
+        ],
+        "tile_size": [
+          "40",
+          "42",
+          "44",
+          "46",
+          "48",
+          "50",
+          "52",
+          "54",
+          "56"
+        ],
+        "tile_count": [
+          "108",
+          "112",
+          "120",
+          "136",
+          "144",
+          "152"
+        ],
+        "tile_color": [
+          "blue-green",
+          "white-green",
+          "pink-green"
+        ],
+        "leg_type": [
+          "single",
+          "double"
+        ],
+        "shipping": [
+          "shipping"
+        ]
+      },
+      "images": [],
+      "badges": [
+        "热销"
+      ],
+      "isActive": true,
+      "isFeatured": true,
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "updatedAt": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "prod_002",
+      "slug": "canhong52zhedie",
+      "name": "彩虹52折叠款",
+      "shortDesc": "多彩配色，时尚外观",
+      "description": "彩虹52系列，时尚多彩配色，适合追求个性化的用户。",
+      "category": "folding-4mouth",
+      "categoryName": "折叠款四口机",
+      "price": 649,
+      "originalPrice": 799,
+      "color": "#D4B86A",
+      "features": [
+        "多彩配色",
+        "静音设计",
+        "折叠便携"
+      ],
+      "options": {
+        "body_color": [
+          "moonlight-white",
+          "champagne",
+          "deep-space-gray"
+        ],
+        "table_color": [
+          "gray",
+          "green",
+          "khaki",
+          "pink"
+        ],
+        "tile_size": [
+          "40",
+          "42",
+          "44",
+          "46",
+          "48",
+          "50",
+          "52"
+        ],
+        "tile_count": [
+          "108",
+          "112",
+          "120",
+          "136"
+        ],
+        "tile_color": [
+          "blue-green",
+          "white-green",
+          "pink-green"
+        ],
+        "leg_type": [
+          "single",
+          "double"
+        ],
+        "shipping": [
+          "shipping"
+        ]
+      },
+      "images": [],
+      "badges": [
+        "新品"
+      ],
+      "isActive": true,
+      "isFeatured": false,
+      "createdAt": "2024-02-01T00:00:00.000Z",
+      "updatedAt": "2024-02-01T00:00:00.000Z"
+    },
+    {
+      "id": "prod_003",
+      "slug": "fuyunzhedie",
+      "name": "福运折叠款",
+      "shortDesc": "福运吉祥，性价比之选",
+      "description": "福运系列麻将机，经济实惠，品质可靠。",
+      "category": "folding-4mouth",
+      "categoryName": "折叠款四口机",
+      "price": 549,
+      "originalPrice": 699,
+      "color": "#8B7355",
+      "features": [
+        "经济实惠",
+        "品质可靠",
+        "静音洗牌"
+      ],
+      "options": {
+        "body_color": [
+          "moonlight-white",
+          "champagne",
+          "deep-space-gray"
+        ],
+        "table_color": [
+          "gray",
+          "green"
+        ],
+        "tile_size": [
+          "40",
+          "42",
+          "44",
+          "46"
+        ],
+        "tile_count": [
+          "108",
+          "112",
+          "136"
+        ],
+        "tile_color": [
+          "blue-green"
+        ],
+        "leg_type": [
+          "single"
+        ],
+        "shipping": [
+          "shipping"
+        ]
+      },
+      "images": [],
+      "badges": [],
+      "isActive": true,
+      "isFeatured": false,
+      "createdAt": "2024-03-01T00:00:00.000Z",
+      "updatedAt": "2024-03-01T00:00:00.000Z"
+    },
+    {
+      "id": "prod_004",
+      "slug": "lewanjiazhedie",
+      "name": "乐万家折叠款",
+      "shortDesc": "全家共享欢乐时光",
+      "description": "乐万家系列，专为家庭聚会设计。",
+      "category": "folding-4mouth",
+      "categoryName": "折叠款四口机",
+      "price": 579,
+      "originalPrice": 729,
+      "color": "#5C5C5C",
+      "features": [
+        "家庭适用",
+        "静音设计",
+        "折叠收纳"
+      ],
+      "options": {
+        "body_color": [
+          "moonlight-white",
+          "champagne",
+          "deep-space-gray",
+          "noble-blue"
+        ],
+        "table_color": [
+          "gray",
+          "green",
+          "khaki"
+        ],
+        "tile_size": [
+          "40",
+          "42",
+          "44",
+          "46",
+          "48",
+          "50"
+        ],
+        "tile_count": [
+          "108",
+          "112",
+          "120",
+          "136",
+          "144"
+        ],
+        "tile_color": [
+          "blue-green",
+          "white-green"
+        ],
+        "leg_type": [
+          "single",
+          "double"
+        ],
+        "shipping": [
+          "shipping"
+        ]
+      },
+      "images": [],
+      "badges": [],
+      "isActive": true,
+      "isFeatured": false,
+      "createdAt": "2024-04-01T00:00:00.000Z",
+      "updatedAt": "2024-04-01T00:00:00.000Z"
+    },
+    {
+      "id": "prod_005",
+      "slug": "ruyizhedie",
+      "name": "如意折叠款",
+      "shortDesc": "如意吉祥，好运连连",
+      "description": "如意系列麻将机，寓意美好，品质卓越。",
+      "category": "folding-4mouth",
+      "categoryName": "折叠款四口机",
+      "price": 629,
+      "originalPrice": 779,
+      "color": "#D98A45",
+      "features": [
+        "寓意吉祥",
+        "静音设计",
+        "高端配置"
+      ],
+      "options": {
+        "body_color": [
+          "moonlight-white",
+          "champagne",
+          "deep-space-gray",
+          "noble-blue",
+          "amber-orange"
+        ],
+        "table_color": [
+          "gray",
+          "green",
+          "khaki",
+          "pink"
+        ],
+        "tile_size": [
+          "40",
+          "42",
+          "44",
+          "46",
+          "48",
+          "50",
+          "52",
+          "54"
+        ],
+        "tile_count": [
+          "108",
+          "112",
+          "120",
+          "136",
+          "144",
+          "152"
+        ],
+        "tile_color": [
+          "blue-green",
+          "white-green",
+          "pink-green"
+        ],
+        "leg_type": [
+          "single",
+          "double"
+        ],
+        "shipping": [
+          "shipping"
+        ]
+      },
+      "images": [],
+      "badges": [
+        "推荐"
+      ],
+      "isActive": true,
+      "isFeatured": true,
+      "createdAt": "2024-05-01T00:00:00.000Z",
+      "updatedAt": "2024-05-01T00:00:00.000Z"
+    },
+    {
+      "id": "prod_006",
+      "slug": "jixiangzhedie",
+      "name": "吉祥旋翼折叠款",
+      "shortDesc": "旋翼机芯，一盘无需推牌",
+      "description": "最新旋翼机芯技术，自动推牌，体验更佳。",
+      "category": "folding-rotary",
+      "categoryName": "折叠款旋翼机",
+      "price": 699,
+      "originalPrice": 849,
+      "color": "#6B5B7B",
+      "features": [
+        "旋翼机芯",
+        "自动推牌",
+        "无柱设计",
+        "静音洗牌"
+      ],
+      "options": {
+        "body_color": [
+          "moonlight-white",
+          "champagne",
+          "deep-space-gray",
+          "noble-blue"
+        ],
+        "table_color": [
+          "gray",
+          "green",
+          "khaki"
+        ],
+        "tile_size": [
+          "40",
+          "42",
+          "44",
+          "46",
+          "48",
+          "50"
+        ],
+        "tile_count": [
+          "108",
+          "112",
+          "120",
+          "136"
+        ],
+        "tile_color": [
+          "blue-green",
+          "white-green"
+        ],
+        "leg_type": [
+          "single",
+          "double"
+        ],
+        "shipping": [
+          "shipping"
+        ]
+      },
+      "images": [],
+      "badges": [
+        "热销"
+      ],
+      "isActive": true,
+      "isFeatured": true,
+      "createdAt": "2024-06-01T00:00:00.000Z",
+      "updatedAt": "2024-06-01T00:00:00.000Z"
+    },
+    {
+      "id": "prod_007",
+      "slug": "a8",
+      "name": "A8 旋翼款",
+      "shortDesc": "高端旋翼，无与伦比",
+      "description": "A8系列顶级旋翼机芯，为您带来极致的麻将体验。",
+      "category": "folding-rotary",
+      "categoryName": "折叠款旋翼机",
+      "price": 799,
+      "originalPrice": 949,
+      "color": "#234876",
+      "features": [
+        "顶级旋翼",
+        "智能控制",
+        "静音设计",
+        "高端外观"
+      ],
+      "options": {
+        "body_color": [
+          "moonlight-white",
+          "champagne",
+          "deep-space-gray",
+          "noble-blue",
+          "amber-orange"
+        ],
+        "table_color": [
+          "gray",
+          "green",
+          "khaki",
+          "pink"
+        ],
+        "tile_size": [
+          "40",
+          "42",
+          "44",
+          "46",
+          "48",
+          "50",
+          "52",
+          "54"
+        ],
+        "tile_count": [
+          "108",
+          "112",
+          "120",
+          "136",
+          "144",
+          "152"
+        ],
+        "tile_color": [
+          "blue-green",
+          "white-green",
+          "pink-green"
+        ],
+        "leg_type": [
+          "single",
+          "double"
+        ],
+        "shipping": [
+          "shipping"
+        ]
+      },
+      "images": [],
+      "badges": [
+        "高端"
+      ],
+      "isActive": true,
+      "isFeatured": true,
+      "createdAt": "2024-07-01T00:00:00.000Z",
+      "updatedAt": "2024-07-01T00:00:00.000Z"
+    },
+    {
+      "id": "prod_008",
+      "slug": "canhong52xyj",
+      "name": "彩虹52旋翼机",
+      "shortDesc": "旋翼静音，时尚之选",
+      "description": "彩虹52旋翼系列，时尚与性能的完美结合。",
+      "category": "folding-rotary",
+      "categoryName": "折叠款旋翼机",
+      "price": 729,
+      "originalPrice": 879,
+      "color": "#D4B86A",
+      "features": [
+        "旋翼静音",
+        "多彩配色",
+        "智能控制"
+      ],
+      "options": {
+        "body_color": [
+          "moonlight-white",
+          "champagne",
+          "deep-space-gray"
+        ],
+        "table_color": [
+          "gray",
+          "green",
+          "khaki",
+          "pink"
+        ],
+        "tile_size": [
+          "40",
+          "42",
+          "44",
+          "46",
+          "48",
+          "50"
+        ],
+        "tile_count": [
+          "108",
+          "112",
+          "120",
+          "136"
+        ],
+        "tile_color": [
+          "blue-green",
+          "white-green",
+          "pink-green"
+        ],
+        "leg_type": [
+          "single",
+          "double"
+        ],
+        "shipping": [
+          "shipping"
+        ]
+      },
+      "images": [],
+      "badges": [
+        "新品"
+      ],
+      "isActive": true,
+      "isFeatured": false,
+      "createdAt": "2024-08-01T00:00:00.000Z",
+      "updatedAt": "2024-08-01T00:00:00.000Z"
+    },
+    {
+      "id": "prod_009",
+      "slug": "yihao60canzhuo",
+      "name": "易号60餐桌款",
+      "shortDesc": "餐桌麻将两用，家具家电首选",
+      "description": "易号60餐桌系列，一桌两用，节省空间。",
+      "category": "table-4mouth",
+      "categoryName": "餐桌款四口机",
+      "price": 649,
+      "originalPrice": 799,
+      "color": "#7B5DA8",
+      "features": [
+        "餐桌两用",
+        "节省空间",
+        "四口机芯",
+        "静音设计"
+      ],
+      "options": {
+        "body_color": [
+          "moonlight-white",
+          "champagne",
+          "deep-space-gray",
+          "noble-blue"
+        ],
+        "table_color": [
+          "gray",
+          "green",
+          "khaki"
+        ],
+        "tile_size": [
+          "40",
+          "42",
+          "44",
+          "46",
+          "48",
+          "50"
+        ],
+        "tile_count": [
+          "108",
+          "112",
+          "120",
+          "136"
+        ],
+        "tile_color": [
+          "blue-green",
+          "white-green"
+        ],
+        "leg_type": [
+          "single"
+        ],
+        "shipping": [
+          "shipping"
+        ]
+      },
+      "images": [],
+      "badges": [
+        "热销"
+      ],
+      "isActive": true,
+      "isFeatured": true,
+      "createdAt": "2024-09-01T00:00:00.000Z",
+      "updatedAt": "2024-09-01T00:00:00.000Z"
+    },
+    {
+      "id": "prod_010",
+      "slug": "a8canzhuo",
+      "name": "A8 餐桌款",
+      "shortDesc": "轻薄机身，餐桌实用兼顾",
+      "description": "A8餐桌系列，轻薄设计，高端体验。",
+      "category": "table-rotary",
+      "categoryName": "餐桌款旋翼机",
+      "price": 849,
+      "originalPrice": 999,
+      "color": "#234876",
+      "features": [
+        "轻薄设计",
+        "旋翼机芯",
+        "高端体验",
+        "餐桌两用"
+      ],
+      "options": {
+        "body_color": [
+          "moonlight-white",
+          "champagne",
+          "deep-space-gray",
+          "noble-blue",
+          "amber-orange"
+        ],
+        "table_color": [
+          "gray",
+          "green",
+          "khaki",
+          "pink"
+        ],
+        "tile_size": [
+          "40",
+          "42",
+          "44",
+          "46",
+          "48",
+          "50",
+          "52",
+          "54"
+        ],
+        "tile_count": [
+          "108",
+          "112",
+          "120",
+          "136",
+          "144",
+          "152"
+        ],
+        "tile_color": [
+          "blue-green",
+          "white-green",
+          "pink-green"
+        ],
+        "leg_type": [
+          "single"
+        ],
+        "shipping": [
+          "shipping"
+        ]
+      },
+      "images": [],
+      "badges": [
+        "高端"
+      ],
+      "isActive": true,
+      "isFeatured": true,
+      "createdAt": "2024-10-01T00:00:00.000Z",
+      "updatedAt": "2024-10-01T00:00:00.000Z"
+    },
+    {
+      "id": "prod_011",
+      "slug": "outdoor-portable",
+      "name": "户外便携麻将机",
+      "shortDesc": "轻便小巧，随时随地享受麻将乐趣",
+      "description": "户外系列，轻便易携，适合户外活动和旅行使用。",
+      "category": "outdoor",
+      "categoryName": "户外麻将机",
+      "price": 399,
+      "originalPrice": 499,
+      "color": "#5B7B5B",
+      "features": [
+        "轻便易携",
+        "户外适用",
+        "折叠收纳"
+      ],
+      "options": {
+        "body_color": [
+          "moonlight-white",
+          "deep-space-gray"
+        ],
+        "table_color": [
+          "green"
+        ],
+        "tile_size": [
+          "40",
+          "42",
+          "44"
+        ],
+        "tile_count": [
+          "108"
+        ],
+        "tile_color": [
+          "blue-green"
+        ],
+        "leg_type": [
+          "single"
+        ],
+        "shipping": [
+          "shipping"
+        ]
+      },
+      "images": [],
+      "badges": [
+        "即将上线"
+      ],
+      "isActive": false,
+      "isFeatured": false,
+      "createdAt": "2024-11-01T00:00:00.000Z",
+      "updatedAt": "2024-11-01T00:00:00.000Z"
+    },
+    {
+      "slug": "sdsd",
+      "name": "sdsd",
+      "shortDesc": "dsd",
+      "description": "dsa",
+      "category": "folding-4mouth",
+      "categoryName": "folding-4mouth",
+      "price": 554.97,
+      "originalPrice": 0,
+      "color": "#8B4513",
+      "features": [],
+      "options": {},
+      "images": [
+        "https://picsum.photos/seed/1778044444240/600/400"
+      ],
+      "badges": [],
+      "isActive": false,
+      "isFeatured": false,
+      "id": "prod_motlwtwq4yl37d",
+      "createdAt": "2026-05-06T05:18:28.970Z",
+      "updatedAt": "2026-05-06T05:19:19.763Z"
+    },
+    {
+      "slug": "aa",
+      "name": "aa",
+      "shortDesc": "cc",
+      "description": "dd",
+      "category": "folding-4mouth",
+      "categoryName": "folding-4mouth",
+      "price": 599,
+      "originalPrice": 0,
+      "color": "#8B4513",
+      "features": [],
+      "options": {},
+      "images": [
+        "https://picsum.photos/seed/1778044770200/600/400"
+      ],
+      "badges": [],
+      "isActive": true,
+      "isFeatured": false,
+      "id": "prod_motlyd55vqox03",
+      "createdAt": "2026-05-06T05:19:40.553Z",
+      "updatedAt": "2026-05-06T05:19:40.553Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "order_001",
+      "orderNumber": "LUY-20260315-000001",
+      "userId": "user_demo001",
+      "customerName": "张三",
+      "customerEmail": "zhangsan@example.com",
+      "customerPhone": "626-888-8888",
+      "shippingName": "张三",
+      "shippingPhone": "626-888-8888",
+      "shippingStreet": "123 Main St",
+      "shippingCity": "Los Angeles",
+      "shippingState": "CA",
+      "shippingZip": "90001",
+      "items": [],
+      "subtotal": 599,
+      "shippingFee": 0,
+      "tax": 59.9,
+      "discount": 0,
+      "total": 658.9,
+      "configuration": {
+        "body_color": "moonlight-white",
+        "table_color": "green",
+        "tile_size": "42",
+        "tile_count": "136",
+        "tile_color": "blue-green",
+        "leg_type": "single"
+      },
+      "productSlug": "yihao",
+      "productName": "易号60",
+      "finalPrice": 599,
+      "status": "delivered",
+      "paymentMethod": "paypal",
+      "paymentStatus": "paid",
+      "notes": "",
+      "adminNotes": "",
+      "createdAt": "2026-03-15T10:30:00.000Z",
+      "updatedAt": "2026-03-20T14:00:00.000Z"
+    },
+    {
+      "userId": "user_admin001",
+      "customerName": "Gig",
+      "customerEmail": "zhuge202322@gmail.com",
+      "customerPhone": "+40768538242",
+      "shippingName": "Gig",
+      "shippingPhone": "+40768538242",
+      "shippingStreet": "Gjvg",
+      "shippingCity": "Yhh",
+      "shippingState": "ca",
+      "shippingZip": "100346",
+      "items": [
+        {
+          "name": "乐万家折叠麻将机",
+          "price": 599,
+          "quantity": 1
+        }
+      ],
+      "subtotal": 599,
+      "shippingFee": 0,
+      "tax": 0,
+      "discount": 0,
+      "total": 599,
+      "configuration": {},
+      "finalPrice": 599,
+      "status": "pending",
+      "paymentStatus": "pending",
+      "notes": "",
+      "adminNotes": "",
+      "id": "order_motdphg2rd7pru",
+      "orderNumber": "LUY-20260506-HTWXDA",
+      "createdAt": "2026-05-06T01:28:49.298Z",
+      "updatedAt": "2026-05-06T01:45:15.805Z"
+    },
+    {
+      "userId": "user_admin001",
+      "customerName": "Gig",
+      "customerEmail": "zhugeaa202322@gmail.com",
+      "customerPhone": "+40722513697",
+      "shippingName": "Gig",
+      "shippingPhone": "+40722513697",
+      "shippingStreet": "Gjvg",
+      "shippingCity": "Yhh",
+      "shippingState": "cc",
+      "shippingZip": "100346",
+      "items": [
+        {
+          "name": "福韵折叠麻将机",
+          "price": 654,
+          "quantity": 1,
+          "image": "https://www.luundy.com/wp-content/uploads/2025/12/未标题-3.webp",
+          "configuration": {
+            "body_color": {
+              "label": "贵族蓝",
+              "price": 0,
+              "id": "noble-blue"
+            },
+            "table_color": {
+              "label": "粉色",
+              "price": 0,
+              "id": "pink"
+            },
+            "tile_size": {
+              "label": "56号",
+              "price": 25,
+              "id": "56"
+            },
+            "tile_count": {
+              "label": "144张",
+              "price": 0,
+              "id": "144"
+            },
+            "tile_color": {
+              "label": "粉绿仿玉石色",
+              "price": 0,
+              "id": "pink-green"
+            },
+            "leg_type": {
+              "label": "双折叠腿",
+              "price": 30,
+              "id": "double"
+            },
+            "shipping": {
+              "label": "国内海运",
+              "price": 0,
+              "id": "sea"
+            }
+          }
+        }
+      ],
+      "subtotal": 654,
+      "shippingFee": 0,
+      "tax": 0,
+      "discount": 0,
+      "total": 654,
+      "configuration": {},
+      "finalPrice": 654,
+      "status": "confirmed",
+      "paymentStatus": "pending",
+      "notes": "aaaaa",
+      "adminNotes": "",
+      "id": "order_mote3nlo9zw1bf",
+      "orderNumber": "LUY-20260506-5JU64G",
+      "createdAt": "2026-05-06T01:39:50.460Z",
+      "updatedAt": "2026-05-06T01:53:41.493Z"
+    },
+    {
+      "customerName": "Gig",
+      "customerEmail": "zhuge202322@gmail.com",
+      "customerPhone": "+40768538242",
+      "shippingName": "",
+      "shippingPhone": "",
+      "shippingStreet": "Gjvg",
+      "shippingCity": "Yhh",
+      "shippingState": "ca",
+      "shippingZip": "100346",
+      "items": [
+        {
+          "name": "福韵餐桌麻将机",
+          "price": 724,
+          "quantity": 1,
+          "image": "https://www.luundy.com/wp-content/uploads/2025/12/未标题-12.webp",
+          "configuration": {
+            "body_color": {
+              "label": "深空灰",
+              "price": 0,
+              "id": "deep-space-gray"
+            },
+            "table_color": {
+              "label": "卡其色",
+              "price": 0,
+              "id": "khaki"
+            },
+            "tile_size": {
+              "label": "56号",
+              "price": 25,
+              "id": "56"
+            },
+            "tile_count": {
+              "label": "152张",
+              "price": 100,
+              "id": "152"
+            },
+            "tile_color": {
+              "label": "普通蓝绿色",
+              "price": 0,
+              "id": "blue-green"
+            },
+            "leg_type": {
+              "label": "单折叠腿",
+              "price": 0,
+              "id": "single"
+            },
+            "shipping": {
+              "label": "国内海运",
+              "price": 0,
+              "id": "sea"
+            }
+          }
+        }
+      ],
+      "subtotal": 724,
+      "shippingFee": 0,
+      "tax": 0,
+      "discount": 0,
+      "total": 724,
+      "configuration": {},
+      "finalPrice": 724,
+      "status": "confirmed",
+      "paymentMethod": "stripe",
+      "paymentStatus": "paid",
+      "notes": "",
+      "adminNotes": "Stripe Session: cs_test_a1UWOBdzDfLJlKWIW7z3SysGuUB1IUS0Wvrw3PXisNLWTaFBhJfmXEMpy3",
+      "id": "order_motj6iwkegxx4r",
+      "orderNumber": "LUY-20260506-RSO2YS",
+      "createdAt": "2026-05-06T04:02:02.420Z",
+      "updatedAt": "2026-05-06T04:02:02.420Z"
+    },
+    {
+      "customerName": "Gig",
+      "customerEmail": "zhuge20234422@gmail.com",
+      "customerPhone": "+40768538242",
+      "shippingName": "",
+      "shippingPhone": "",
+      "shippingStreet": "Gjvg",
+      "shippingCity": "Yhh",
+      "shippingState": "ca",
+      "shippingZip": "100346",
+      "items": [
+        {
+          "name": "乐万家折叠麻将机",
+          "price": 724,
+          "quantity": 1,
+          "image": "https://www.luundy.com/wp-content/uploads/2025/12/未标题-17.webp",
+          "configuration": {
+            "body_color": {
+              "label": "香槟金",
+              "price": 0,
+              "id": "champagne"
+            },
+            "table_color": {
+              "label": "卡其色",
+              "price": 0,
+              "id": "khaki"
+            },
+            "tile_size": {
+              "label": "52号",
+              "price": 25,
+              "id": "52"
+            },
+            "tile_count": {
+              "label": "152张",
+              "price": 100,
+              "id": "152"
+            },
+            "tile_color": {
+              "label": "普通蓝绿色",
+              "price": 0,
+              "id": "blue-green"
+            },
+            "leg_type": {
+              "label": "单折叠腿",
+              "price": 0,
+              "id": "single"
+            },
+            "shipping": {
+              "label": "国内海运",
+              "price": 0,
+              "id": "sea"
+            }
+          }
+        }
+      ],
+      "subtotal": 724,
+      "shippingFee": 0,
+      "tax": 0,
+      "discount": 0,
+      "total": 724,
+      "configuration": {},
+      "finalPrice": 724,
+      "status": "confirmed",
+      "paymentMethod": "stripe",
+      "paymentStatus": "paid",
+      "notes": "",
+      "adminNotes": "Stripe Session: cs_test_a13gA9Du16kYKZbviGz7SSh57Fxd88N7OIcu88FxdxzAqmCS64hAN6yO7X",
+      "id": "order_motkmdtl73b8ke",
+      "orderNumber": "LUY-20260506-TBQ5SP",
+      "createdAt": "2026-05-06T04:42:21.945Z",
+      "updatedAt": "2026-05-06T04:42:21.945Z"
+    },
+    {
+      "customerName": "Gig",
+      "customerEmail": "zhuge20234422@gmail.com",
+      "customerPhone": "+40768538242",
+      "shippingName": "",
+      "shippingPhone": "",
+      "shippingStreet": "Gjvg",
+      "shippingCity": "Yhh",
+      "shippingState": "ca",
+      "shippingZip": "100346",
+      "items": [
+        {
+          "name": "乐万家折叠麻将机",
+          "price": 724,
+          "quantity": 1,
+          "image": "https://www.luundy.com/wp-content/uploads/2025/12/未标题-17.webp",
+          "configuration": {
+            "body_color": {
+              "label": "香槟金",
+              "price": 0,
+              "id": "champagne"
+            },
+            "table_color": {
+              "label": "卡其色",
+              "price": 0,
+              "id": "khaki"
+            },
+            "tile_size": {
+              "label": "52号",
+              "price": 25,
+              "id": "52"
+            },
+            "tile_count": {
+              "label": "152张",
+              "price": 100,
+              "id": "152"
+            },
+            "tile_color": {
+              "label": "普通蓝绿色",
+              "price": 0,
+              "id": "blue-green"
+            },
+            "leg_type": {
+              "label": "单折叠腿",
+              "price": 0,
+              "id": "single"
+            },
+            "shipping": {
+              "label": "国内海运",
+              "price": 0,
+              "id": "sea"
+            }
+          }
+        }
+      ],
+      "subtotal": 724,
+      "shippingFee": 0,
+      "tax": 0,
+      "discount": 0,
+      "total": 724,
+      "configuration": {},
+      "finalPrice": 724,
+      "status": "confirmed",
+      "paymentMethod": "stripe",
+      "paymentStatus": "paid",
+      "notes": "",
+      "adminNotes": "Stripe Session: cs_test_a13gA9Du16kYKZbviGz7SSh57Fxd88N7OIcu88FxdxzAqmCS64hAN6yO7X",
+      "id": "order_motkmdtzkk1c7z",
+      "orderNumber": "LUY-20260506-5HZLHG",
+      "createdAt": "2026-05-06T04:42:21.959Z",
+      "updatedAt": "2026-05-06T04:42:21.959Z"
+    }
+  ],
+  "addresses": [
+    {
+      "id": "addr_001",
+      "userId": "user_demo001",
+      "name": "张三",
+      "phone": "626-888-8888",
+      "street": "123 Main St",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zipCode": "90001",
+      "country": "USA",
+      "isDefault": true,
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    }
+  ]
+}

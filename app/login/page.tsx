@@ -1,12 +1,40 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
-import { Eye, EyeOff, Mail, Lock, ArrowRight, ShieldCheck } from 'lucide-react';
+import Link from 'next/link';
+import { Eye, EyeOff, Mail, Lock, ArrowRight, ShieldCheck, Loader2, CheckCircle } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function LoginPage() {
+  const { signIn } = useAuth();
+  
   const [showPwd, setShowPwd] = useState(false);
-  const [tab, setTab] = useState<'email' | 'phone'>('email');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setLoading(true);
+    setSuccess(false);
+
+    const { error: loginError } = await signIn(email, password);
+
+    if (loginError) {
+      setError(loginError);
+      setLoading(false);
+    } else {
+      setSuccess(true);
+      setLoading(false);
+      // Redirect after short delay
+      setTimeout(() => {
+        window.location.href = '/profile';
+      }, 500);
+    }
+  };
 
   return (
     <main className="diamond-bg min-h-[80vh] py-16">
@@ -17,14 +45,14 @@ export default function LoginPage() {
             <div className="absolute inset-0 diamond-bg-dark opacity-90" />
             <div className="relative">
               <span className="font-serif text-[34px] font-medium tracking-wide text-gold-light">
-                Luundy
+                ZHONGQUE
               </span>
               <p className="mt-2 text-[13px] text-cream/70">
                 Automatic Mahjong Table · 自动麻将机
               </p>
 
               <h2 className="mt-12 font-serif text-[30px] font-medium leading-snug">
-                欢迎回到 Luundy
+                欢迎回到 ZHONGQUE
                 <br />
                 <span className="text-gold-light">Welcome Back</span>
               </h2>
@@ -48,7 +76,7 @@ export default function LoginPage() {
               </ul>
 
               <p className="absolute bottom-0 left-0 mt-12 text-[12px] text-cream/50">
-                © {new Date().getFullYear()} Luundy. All Rights Reserved.
+                © {new Date().getFullYear()} ZHONGQUE. All Rights Reserved.
               </p>
             </div>
           </div>
@@ -59,43 +87,37 @@ export default function LoginPage() {
               登录账户
             </h1>
             <p className="mt-1 text-[13px] text-wine-dark/60">
-              Sign in to your Luundy account
+              Sign in to your ZHONGQUE account
             </p>
 
-            {/* tab 切换 */}
-            <div className="mt-6 inline-flex rounded-md border border-gold/40 p-1 text-[13px]">
-              <button
-                onClick={() => setTab('email')}
-                className={`rounded px-4 py-1.5 ${
-                  tab === 'email'
-                    ? 'bg-wine text-cream'
-                    : 'text-wine-dark/70 hover:text-wine'
-                }`}
-              >
-                邮箱登录
-              </button>
-              <button
-                onClick={() => setTab('phone')}
-                className={`rounded px-4 py-1.5 ${
-                  tab === 'phone'
-                    ? 'bg-wine text-cream'
-                    : 'text-wine-dark/70 hover:text-wine'
-                }`}
-              >
-                手机号登录
-              </button>
-            </div>
+            {/* 错误提示 */}
+            {error && (
+              <div className="mt-6 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-sm">
+                {error}
+              </div>
+            )}
 
-            <form className="mt-6 space-y-5">
+            {/* 成功提示 */}
+            {success && (
+              <div className="mt-6 p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm flex items-center gap-2">
+                <CheckCircle size={16} />
+                登录成功！正在跳转...
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="mt-6 space-y-5">
               <div>
                 <label className="mb-1 block text-[13px] text-wine-dark/80">
-                  {tab === 'email' ? '邮箱地址' : '手机号码'}
+                  邮箱地址
                 </label>
                 <div className="flex items-center rounded-md border border-gold/40 bg-cream2 px-3">
                   <Mail size={16} className="text-wine-dark/50" />
                   <input
-                    type={tab === 'email' ? 'email' : 'tel'}
-                    placeholder={tab === 'email' ? 'you@example.com' : '+1 415-555-0188'}
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    required
                     className="w-full bg-transparent px-2 py-2.5 text-[14px] text-wine-dark placeholder:text-wine-dark/40 focus:outline-none"
                   />
                 </div>
@@ -112,7 +134,11 @@ export default function LoginPage() {
                   <Lock size={16} className="text-wine-dark/50" />
                   <input
                     type={showPwd ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
+                    required
+                    minLength={6}
                     className="w-full bg-transparent px-2 py-2.5 text-[14px] text-wine-dark placeholder:text-wine-dark/40 focus:outline-none"
                   />
                   <button
@@ -135,8 +161,19 @@ export default function LoginPage() {
                 7 天内自动登录
               </label>
 
-              <button type="submit" className="btn-wine w-full justify-center">
-                登 录 <ArrowRight size={16} />
+              <button 
+                type="submit" 
+                disabled={loading}
+                className="btn-wine w-full justify-center disabled:opacity-50"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 size={16} className="animate-spin" />
+                    登录中...
+                  </>
+                ) : (
+                  <>登 录 <ArrowRight size={16} /></>
+                )}
               </button>
             </form>
 
@@ -152,10 +189,17 @@ export default function LoginPage() {
                 <button
                   key={p}
                   className="rounded-md border border-gold/40 bg-cream2 px-4 py-2.5 text-[13px] text-wine-dark hover:border-wine hover:text-wine"
+                  disabled
                 >
                   {p}
                 </button>
               ))}
+            </div>
+
+            {/* 演示账号 */}
+            <div className="mt-6 p-4 rounded-lg bg-gold-soft/30 border border-gold/30">
+              <p className="text-wine-dark/70 text-xs text-center mb-2">演示账号</p>
+              <p className="text-wine-dark/60 text-xs text-center">admin@zhongque.com / admin123</p>
             </div>
 
             <p className="mt-8 text-center text-[13px] text-wine-dark/70">

@@ -10,7 +10,7 @@ const DEFAULTS = {
   'wine-deeper': '#7E3F52',
 };
 
-const STORAGE_KEY = 'luundy-theme-v1';
+const STORAGE_KEY = 'zhongque-theme-v1';
 
 // 预设方案
 const PRESETS: { name: string; colors: Record<string, string> }[] = [

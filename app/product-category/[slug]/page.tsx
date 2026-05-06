@@ -3,25 +3,26 @@ import { notFound } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
 import {
   categories,
-  getCategory,
-  getProductsByCategory,
-  products,
-} from '@/lib/products';
+  getAllStorefrontProducts,
+  getStorefrontCategory,
+  getStorefrontProductsByCategory,
+} from '@/lib/storefront-products';
 import PageHero from '@/components/PageHero';
 import ProductImage from '@/components/ProductImage';
+
+export const dynamic = 'force-dynamic';
 
 export function generateStaticParams() {
   return categories.map((c) => ({ slug: c.slug }));
 }
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
-  const cat = getCategory(params.slug);
+export default async function CategoryPage({ params }: { params: { slug: string } }) {
+  const cat = await getStorefrontCategory(params.slug);
   if (!cat) notFound();
 
-  // 优先展示当前分类，其它分类作为补充推荐
-  const inCat = getProductsByCategory(params.slug);
-  const others = products.filter((p) => p.category !== params.slug);
-  const list = [...inCat, ...others.slice(0, Math.max(0, 6 - inCat.length))];
+  const products = await getAllStorefrontProducts();
+  const inCat = await getStorefrontProductsByCategory(params.slug);
+  const list = inCat.length > 0 ? inCat : products.filter((p) => p.category !== params.slug).slice(0, 6);
 
   return (
     <main>
@@ -32,7 +33,7 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
         <div className="mx-auto flex max-w-[1280px] flex-wrap items-center justify-between gap-3 px-8">
           <div className="flex flex-wrap gap-2">
             <Link
-              href="/product-category/all"
+              href="/shop"
               className="rounded-md border border-cream/30 px-4 py-2 text-[14px] text-cream/85 hover:border-gold hover:text-gold"
             >
               全部机型

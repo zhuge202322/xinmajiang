@@ -34,10 +34,10 @@ const cols = [
 ];
 
 const contacts = [
-  { icon: MessageSquare, text: '微信: us234mj' },
-  { icon: Phone, text: '189-6909-4808' },
-  { icon: Mail, text: 'service@example.com' },
-  { icon: Clock, text: '周一至周日 9:00-17:00 (EST)' },
+  { icon: MessageSquare, text: '微信: az134mj' },
+  { icon: Phone, text: '+1 (669) 721-9311' },
+  { icon: Mail, text: 'houchang110505@gmail.com' },
+  { icon: Clock, text: '周一至周日 9:00-18:00' },
 ];
 
 const payments = ['Visa', 'Mastercard', '微信', '支付宝', 'Stripe', 'PayPal'];
@@ -48,7 +48,7 @@ export default function Footer() {
       <div className="mx-auto max-w-[1280px] px-8 py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-10">
           <div className="col-span-2">
-            <h3 className="font-serif text-[28px] font-medium text-gold-light">Luundy</h3>
+            <img src="/img/logo.png" alt="ZHONGQUE" className="h-10" />
             <p className="mt-3 max-w-xs text-[13px] text-cream/70">
               专为海外华人打造的高端麻将机品牌，传承经典，创新体验。
             </p>
@@ -97,7 +97,7 @@ export default function Footer() {
         </div>
 
         <p className="mt-10 text-center text-[12px] text-cream/55">
-          © 2026 Luundy. All rights reserved. | 专为海外华人打造的高端麻将机品牌
+          © 2026 ZHONGQUE. All rights reserved. | 专为海外华人打造的高端麻将机品牌
         </p>
       </div>
     </footer>
