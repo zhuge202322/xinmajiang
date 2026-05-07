@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Eye, Calendar } from 'lucide-react';
 import { blogPosts, getPost } from '@/lib/blog';
@@ -38,10 +39,16 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </span>
         </div>
 
-        <div
-          className="mt-8 aspect-[16/9] rounded-2xl border-2 border-gold"
-          style={{ background: post.cover }}
-        />
+        <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl border-2 border-gold">
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            sizes="(min-width: 768px) 768px, 100vw"
+            className="object-cover"
+            priority
+          />
+        </div>
 
         <div className="prose prose-wine mt-10 max-w-none">
           {post.content.map((para, i) => (
@@ -60,7 +67,15 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 href={`/blog/${r.slug}`}
                 className="card-gold overflow-hidden transition-transform hover:-translate-y-1"
               >
-                <div className="aspect-video" style={{ background: r.cover }} />
+                <div className="relative aspect-video">
+                  <Image
+                    src={r.image}
+                    alt={r.title}
+                    fill
+                    sizes="(min-width: 640px) 240px, 100vw"
+                    className="object-cover"
+                  />
+                </div>
                 <div className="p-4">
                   <p className="line-clamp-2 text-[14px] font-medium text-wine-dark">
                     {r.title}

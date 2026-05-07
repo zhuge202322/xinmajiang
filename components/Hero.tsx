@@ -32,6 +32,9 @@ export default function Hero() {
   }, [paused]);
 
   const go = (i: number) => setIdx((i + slides.length) % slides.length);
+  const scrollToProductCategories = () => {
+    document.getElementById('product-categories')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <section
@@ -89,7 +92,10 @@ export default function Hero() {
             <Link href="/dealer-locator" className="btn-wine-outline flex items-center justify-center px-4 py-3">
               <MapPin size={18} /> 附近提货/经销商
             </Link>
-            <button className="btn-gold flex items-center justify-center px-4 py-3">
+            <button
+              onClick={scrollToProductCategories}
+              className="btn-gold flex items-center justify-center px-4 py-3"
+            >
               <Settings size={18} /> 快速配置麻将机
             </button>
             <button

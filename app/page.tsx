@@ -4,7 +4,6 @@ import Coupons from '@/components/Coupons';
 import ProductGrid from '@/components/ProductGrid';
 import Shipping from '@/components/Shipping';
 import Dealers from '@/components/Dealers';
-import Customization from '@/components/Customization';
 
 export default function HomePage() {
   return (
@@ -15,7 +14,6 @@ export default function HomePage() {
       <ProductGrid />
       <Shipping />
       <Dealers />
-      <Customization />
     </main>
   );
 }

@@ -6,6 +6,7 @@ export type BlogPost = {
   views: number;
   date: string;
   cover: string; // placeholder color
+  image: string;
   content: string[]; // paragraphs
 };
 
@@ -31,6 +32,7 @@ export const blogPosts: BlogPost[] = [
     views: 38,
     date: '2026-03-12',
     cover: '#a07e5c',
+    image: '/img/b1.jpg',
     content: [
       '选购家用自动麻将机时，第一件需要考虑的事情是机芯类型。目前主流分为四口机和旋翼机两大类。',
       '四口机结构经典稳定，故障率低，价格也更友好；旋翼机则胜在出牌效率，且不需要推牌，体验更流畅。',
@@ -47,6 +49,7 @@ export const blogPosts: BlogPost[] = [
     views: 57,
     date: '2026-03-08',
     cover: '#7c5a4a',
+    image: '/img/b2.jpg',
     content: [
       '中国麻将玩法因地域差异极大。北方多打 136 张全套，南方部分地区只用 108 张（去掉东南西北）。',
       '广东麻将以"推倒胡"为主，简单直接；四川麻将则以"血战到底"闻名，三方一旦有人胡牌，剩下两家继续对战。',
@@ -62,6 +65,7 @@ export const blogPosts: BlogPost[] = [
     views: 29,
     date: '2026-02-25',
     cover: '#5d6e4f',
+    image: '/img/b3.jpg',
     content: [
       '日常清洁建议每周一次，使用微湿软布擦拭面板，避免使用酒精或溶剂类清洁剂。',
       '季度保养时，需要打开抽屉清理碎屑，并在导轨处涂抹少量硅油以保持顺滑。',
@@ -76,6 +80,7 @@ export const blogPosts: BlogPost[] = [
     views: 102,
     date: '2026-02-14',
     cover: '#945c3a',
+    image: '/img/b4.jpg',
     content: [
       '第一，锻炼大脑：研究表明，定期玩麻将能显著降低老年痴呆症风险。',
       '第二，社交连接：四人围坐，是华人社区中最自然的家庭与朋友活动。',
@@ -90,6 +95,7 @@ export const blogPosts: BlogPost[] = [
     views: 41,
     date: '2026-02-02',
     cover: '#6b4f3a',
+    image: '/img/b5.jpg',
     content: [
       '现代极简风建议选择灰色或卡其色机身，配合大理石餐桌款。',
       '中式古典风更适合实木饰面的折叠款，搭配木地板与中式椅。',
@@ -104,6 +110,7 @@ export const blogPosts: BlogPost[] = [
     views: 18,
     date: '2026-01-20',
     cover: '#5a6a8a',
+    image: '/img/b6.jpg',
     content: [
       '从 8 岁起，孩子就可以学习简化版麻将规则，培养逻辑思维。',
       '建议父母先教记牌、再教组合，最后再引入"胡"的概念。',

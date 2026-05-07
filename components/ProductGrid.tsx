@@ -141,7 +141,7 @@ function CategoryCard({ slug, name, desc, productSlugs }: CategoryCardProps) {
 
 export default function ProductGrid() {
   return (
-    <section className="diamond-bg py-20">
+    <section id="product-categories" className="diamond-bg scroll-mt-20 py-20">
       <div className="mx-auto max-w-[1280px] px-8 text-center">
         <h2 className="font-serif text-[40px] font-medium text-wine-dark">
           产品分类

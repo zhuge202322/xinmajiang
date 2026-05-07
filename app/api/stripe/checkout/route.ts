@@ -65,8 +65,12 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Get the base URL from the request or environment
-    const origin = request.headers.get('origin') || process.env.NEXTAUTH_URL || 'http://localhost:3000';
+    // Get the base URL from the production environment or request
+    const origin =
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      process.env.NEXTAUTH_URL ||
+      request.headers.get('origin') ||
+      'https://www.zhontre.com.cn';
 
     // Store minimal order data in metadata (Stripe has 500 char limit)
     const minimalOrderData = orderData ? {

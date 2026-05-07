@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Eye, Sparkles, Mail } from 'lucide-react';
 import { blogPosts, blogTags } from '@/lib/blog';
 
@@ -48,34 +49,21 @@ export default function BlogIndexPage() {
                 href={`/blog/${p.slug}`}
                 className="card-gold overflow-hidden transition-transform hover:-translate-y-1"
               >
-                <div
-                  className="relative aspect-[4/3]"
-                  style={{ background: p.cover }}
-                >
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src={p.image}
+                    alt={p.title}
+                    fill
+                    sizes="(min-width: 1024px) 384px, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                  <div className="absolute inset-0 bg-wine-dark/15" />
                   <span className="absolute left-4 top-4 rounded-md bg-wine px-3 py-1 text-[12px] text-cream">
                     {p.tag}
                   </span>
                   <span className="absolute right-4 top-4 inline-flex items-center gap-1 rounded-full bg-black/40 px-2 py-0.5 text-[12px] text-cream">
                     <Eye size={12} /> {p.views}
                   </span>
-                  {/* 装饰线条 */}
-                  <svg
-                    viewBox="0 0 400 300"
-                    className="absolute inset-0 h-full w-full opacity-20"
-                  >
-                    <path
-                      d="M0 200 Q100 150 200 200 T400 200"
-                      stroke="#fff"
-                      strokeWidth="1"
-                      fill="none"
-                    />
-                    <path
-                      d="M0 240 Q100 200 200 240 T400 240"
-                      stroke="#fff"
-                      strokeWidth="1"
-                      fill="none"
-                    />
-                  </svg>
                 </div>
                 <div className="p-5">
                   <h3 className="font-serif text-[18px] font-medium text-wine-dark line-clamp-2">
@@ -104,9 +92,14 @@ export default function BlogIndexPage() {
             <p className="mt-3 text-[13px] text-wine-dark/70">
               ZHONGQUE 致力于为全球华人家庭提供高品质的自动麻将机，让传统文化在海外延续。
             </p>
-            <button className="btn-wine mt-5 w-full justify-center text-[13px]">
+            <a
+              href="https://www.xiaohongshu.com/user/profile/6752aca5000000001c019f1b?xsec_token=YBhRYdWDkBe5EEdZgnhKypgQSrDFH-z-x5ferh4Gm9ai0=&xsec_source=app_share&xhsshare=CopyLink&shareRedId=OD03MkRIRT42NzUyOTgwNjdGOTg9SzdL&apptime=1778123725&share_id=9c79ef08c84044159a7cefab6841bc47"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-wine mt-5 w-full justify-center text-[13px]"
+            >
               小红书关注
-            </button>
+            </a>
           </div>
 
           <div className="card-gold p-6">

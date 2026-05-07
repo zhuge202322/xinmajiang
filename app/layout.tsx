@@ -3,6 +3,7 @@ import { Noto_Sans_SC, Noto_Serif_SC } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ThemePicker from '@/components/ThemePicker';
+import Customization from '@/components/Customization';
 import { AuthProvider } from '@/contexts/AuthContext';
 import './globals.css';
 
@@ -38,6 +39,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <Customization />
           <ThemePicker />
         </AuthProvider>
       </body>

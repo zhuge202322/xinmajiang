@@ -94,7 +94,7 @@ export default function ThemePicker() {
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-5 right-5 z-[100] flex h-12 w-12 items-center justify-center rounded-full bg-wine-deeper text-cream shadow-xl transition hover:scale-105"
+          className="fixed bottom-24 right-5 z-[100] flex h-12 w-12 items-center justify-center rounded-full bg-wine-deeper text-cream shadow-xl transition hover:scale-105"
           aria-label="主题颜色"
           title="主题颜色"
         >
@@ -104,7 +104,7 @@ export default function ThemePicker() {
 
       {/* 面板 */}
       {open && (
-        <div className="fixed bottom-5 right-5 z-[100] w-[320px] rounded-xl border border-gold/40 bg-white shadow-2xl">
+        <div className="fixed bottom-24 right-5 z-[100] w-[320px] rounded-xl border border-gold/40 bg-white shadow-2xl">
           <div className="flex items-center justify-between border-b border-gold/30 bg-cream2/60 px-4 py-3">
             <div className="flex items-center gap-2 font-serif text-[15px] font-medium text-wine-dark">
               <Palette size={16} /> 主题颜色调节
