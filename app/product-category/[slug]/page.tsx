@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight } from 'lucide-react';
 import {
   categories,
   getAllStorefrontProducts,
@@ -8,7 +7,7 @@ import {
   getStorefrontProductsByCategory,
 } from '@/lib/storefront-products';
 import PageHero from '@/components/PageHero';
-import ProductImage from '@/components/ProductImage';
+import ProductListWithStockFilter from '@/components/ProductListWithStockFilter';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,13 +15,20 @@ export function generateStaticParams() {
   return categories.map((c) => ({ slug: c.slug }));
 }
 
-export default async function CategoryPage({ params }: { params: { slug: string } }) {
+export default async function CategoryPage({
+  params,
+  searchParams,
+}: {
+  params: { slug: string };
+  searchParams?: { stock?: string };
+}) {
   const cat = await getStorefrontCategory(params.slug);
   if (!cat) notFound();
 
   const products = await getAllStorefrontProducts();
   const inCat = await getStorefrontProductsByCategory(params.slug);
   const list = inCat.length > 0 ? inCat : products.filter((p) => p.category !== params.slug).slice(0, 6);
+  const usOnly = searchParams?.stock === 'us';
 
   return (
     <main>
@@ -64,47 +70,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
       {/* 商品网格 */}
       <section className="diamond-bg py-16">
         <div className="mx-auto max-w-[1280px] px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {list.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/product/${p.slug}`}
-                className="card-gold overflow-hidden transition-transform hover:-translate-y-1"
-              >
-                <div className="relative aspect-square">
-                  <ProductImage src={p.images[0]} color={p.color} label={p.name} />
-                  {p.badges?.map((b, i) => (
-                    <span
-                      key={b}
-                      className="absolute left-4 rounded-md bg-wine px-3 py-1 text-[12px] text-cream"
-                      style={{ top: 16 + i * 32 }}
-                    >
-                      {b}
-                    </span>
-                  ))}
-                </div>
-                <div className="p-5">
-                  <h3 className="font-serif text-[20px] font-medium text-wine-dark">
-                    {p.name}
-                  </h3>
-                  <p className="mt-1 text-[13px] text-wine-dark/70">{p.shortDesc}</p>
-                  <div className="mt-4 flex items-end justify-between">
-                    <div className="flex items-end gap-2">
-                      <span className="text-[13px] text-wine-dark/50 line-through">
-                        ${p.original}
-                      </span>
-                      <span className="font-serif text-[26px] font-medium text-wine">
-                        ${p.price}
-                      </span>
-                    </div>
-                    <span className="inline-flex items-center gap-1 text-[13px] text-wine">
-                      查看详情 <ArrowRight size={14} />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <ProductListWithStockFilter products={list} initialUsOnly={usOnly} />
         </div>
       </section>
     </main>

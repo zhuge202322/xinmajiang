@@ -3,10 +3,26 @@
 // PUT /api/admin/users - Update user (admin only)
 
 import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import * as db from '@/lib/db';
+
+async function isAdminRequest() {
+  const cookieStore = cookies();
+  const sessionData = cookieStore.get('session')?.value;
+  if (!sessionData) return false;
+  try {
+    const session = JSON.parse(sessionData);
+    return Boolean(session?.isAdmin);
+  } catch {
+    return false;
+  }
+}
 
 export async function GET(request: NextRequest) {
   try {
+    if (!(await isAdminRequest())) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
     const dbData = await db.getDatabase();
     const users = dbData.users.map(({ password, ...user }) => user);
     
@@ -19,6 +35,9 @@ export async function GET(request: NextRequest) {
 
 export async function PUT(request: NextRequest) {
   try {
+    if (!(await isAdminRequest())) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+    }
     const body = await request.json();
     const { id, ...updates } = body;
 

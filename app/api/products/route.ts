@@ -11,27 +11,53 @@ import { products as catalogProducts } from '@/lib/products';
 async function getMergedProducts() {
   const databaseProducts = await db.getAllProducts();
   const catalogSlugs = new Set(catalogProducts.map((product) => product.slug));
-  const importedProducts = catalogProducts.map((product) => ({
-    id: `catalog_${product.slug}`,
-    slug: product.slug,
-    name: product.name,
-    shortDesc: product.shortDesc,
-    description: product.description,
-    category: product.category,
-    categoryName: product.categoryName,
-    price: product.price,
-    originalPrice: product.original,
-    color: product.color,
-    features: product.features.map((feature) => `${feature.title}：${feature.desc}`),
-    options: product.options,
-    images: product.images,
-    badges: product.badges ?? [],
-    isActive: true,
-    isFeatured: false,
-    stock: 999,
-    createdAt: product.url,
-    updatedAt: product.url,
-  }));
+  const importedProducts = catalogProducts.map((product) => {
+    const shippingMethods = (product.options?.shipping ?? [])
+      .map((s) => s.code)
+      .filter((c): c is db.ShippingMethodCode => c === 'pickup' || c === 'fedex' || c === 'sea');
+    return {
+      id: `catalog_${product.slug}`,
+      slug: product.slug,
+      name: product.name,
+      shortDesc: product.shortDesc,
+      description: product.description,
+      category: product.category,
+      categoryName: product.categoryName,
+      price: product.price,
+      originalPrice: product.original,
+      color: product.color,
+      features: product.features.map((feature) => `${feature.title}：${feature.desc}`),
+      options: product.options,
+      images: product.images,
+      badges: product.badges ?? [],
+      isActive: true,
+      isFeatured: false,
+      bodyColors: (product.options?.body_color ?? []).map((c) => ({
+        name: c.name ?? c.label ?? c.code,
+        value: c.code,
+      })),
+      tableColors: (product.options?.table_color ?? []).map((c) => ({
+        name: c.name ?? c.label ?? c.code,
+        value: c.code,
+      })),
+      tileSizes: (product.options?.tile_size ?? []).map((s) => s.label ?? `${s.code}号`),
+      tileCounts: (product.options?.tile_count ?? []).map((s) => s.code),
+      tileColorOptions: (product.options?.tile_color ?? []).map((c) => ({
+        name: c.name ?? c.label ?? c.code,
+        image: c.image ?? '',
+        description: c.desc ?? '',
+      })),
+      legModels: (product.options?.leg_type ?? []).map((c) => ({
+        name: c.name ?? c.label ?? c.code,
+        image: c.image ?? '',
+        description: c.desc ?? '',
+      })),
+      shippingMethods: shippingMethods.length > 0 ? shippingMethods : (['pickup', 'fedex', 'sea'] as db.ShippingMethodCode[]),
+      stock: 999,
+      createdAt: product.url,
+      updatedAt: product.url,
+    };
+  });
   const customProducts = databaseProducts.filter((product) => !catalogSlugs.has(product.slug));
 
   return [...importedProducts, ...customProducts];
@@ -58,9 +84,18 @@ export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const category = searchParams.get('category');
   const slug = searchParams.get('slug');
+  const id = searchParams.get('id');
   const featured = searchParams.get('featured');
 
   try {
+    if (id) {
+      const product = (await getMergedProducts()).find((item) => item.id === id);
+      if (!product) {
+        return NextResponse.json({ error: 'Product not found' }, { status: 404 });
+      }
+      return NextResponse.json({ product });
+    }
+
     if (slug) {
       const product = (await getMergedProducts()).find((item) => item.slug === slug);
       if (!product) {
@@ -113,6 +148,13 @@ export async function POST(request: NextRequest) {
       badges: body.badges || [],
       isActive: body.is_active ?? body.isActive ?? true,
       isFeatured: body.is_featured ?? body.isFeatured ?? false,
+      bodyColors: Array.isArray(body.bodyColors) ? body.bodyColors : [],
+      tableColors: Array.isArray(body.tableColors) ? body.tableColors : [],
+      tileSizes: Array.isArray(body.tileSizes) ? body.tileSizes : [],
+      tileCounts: Array.isArray(body.tileCounts) ? body.tileCounts : [],
+      tileColorOptions: Array.isArray(body.tileColorOptions) ? body.tileColorOptions : [],
+      legModels: Array.isArray(body.legModels) ? body.legModels : [],
+      shippingMethods: Array.isArray(body.shippingMethods) ? body.shippingMethods : [],
     });
 
     return NextResponse.json({ product }, { status: 201 });
@@ -151,6 +193,13 @@ export async function PUT(request: NextRequest) {
       badges: updates.badges,
       isActive: updates.is_active ?? updates.isActive,
       isFeatured: updates.is_featured ?? updates.isFeatured,
+      bodyColors: Array.isArray(updates.bodyColors) ? updates.bodyColors : undefined,
+      tableColors: Array.isArray(updates.tableColors) ? updates.tableColors : undefined,
+      tileSizes: Array.isArray(updates.tileSizes) ? updates.tileSizes : undefined,
+      tileCounts: Array.isArray(updates.tileCounts) ? updates.tileCounts : undefined,
+      tileColorOptions: Array.isArray(updates.tileColorOptions) ? updates.tileColorOptions : undefined,
+      legModels: Array.isArray(updates.legModels) ? updates.legModels : undefined,
+      shippingMethods: Array.isArray(updates.shippingMethods) ? updates.shippingMethods : undefined,
     });
 
     if (!product) {

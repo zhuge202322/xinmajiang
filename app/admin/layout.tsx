@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { 
   LayoutDashboard, 
   Package, 
@@ -11,9 +11,12 @@ import {
   CreditCard,
   Menu,
   X,
-  LogOut
+  LogOut,
+  Loader2,
+  ShieldAlert,
 } from 'lucide-react';
 import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const navItems = [
   { href: '/admin', label: '控制台', icon: LayoutDashboard },
@@ -26,7 +29,38 @@ const navItems = [
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, loading, signOut } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-100">
+        <Loader2 size={32} className="animate-spin text-purple-700" />
+      </div>
+    );
+  }
+
+  if (!user || !user.isAdmin) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-gray-100 px-4 text-center">
+        <ShieldAlert size={48} className="text-red-500" />
+        <h1 className="text-xl font-bold text-gray-900">无权访问</h1>
+        <p className="text-gray-600">该页面仅限管理员访问。</p>
+        <button
+          onClick={() => router.push('/login?next=' + encodeURIComponent(pathname) + '&denied=1')}
+          className="mt-2 rounded-lg bg-purple-700 px-5 py-2 text-white hover:bg-purple-800"
+        >
+          切换管理员账户
+        </button>
+      </div>
+    );
+  }
+
+  const handleLogout = async () => {
+    await signOut();
+    router.push('/login');
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -49,7 +83,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             查看网站
           </Link>
-          <button className="flex items-center gap-2 text-sm text-gray-600 hover:text-red-600">
+          <div className="hidden sm:flex items-center gap-2 text-sm text-gray-700">
+            <span className="rounded-full bg-purple-100 px-2 py-0.5 text-xs text-purple-700">管理员</span>
+            <span className="font-medium">{user.displayName || user.email}</span>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 text-sm text-gray-600 hover:text-red-600"
+          >
             <LogOut size={16} />
             退出登录
           </button>

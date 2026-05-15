@@ -2,8 +2,8 @@
   "users": [
     {
       "id": "user_admin001",
-      "email": "admin@luundy.com",
-      "password": "admin123",
+      "email": "admin@zhontre.com.cn",
+      "password": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
       "displayName": "管理员",
       "phone": "189-6909-4808",
       "isAdmin": true,
@@ -89,7 +89,14 @@
       "isActive": true,
       "isFeatured": true,
       "createdAt": "2024-01-01T00:00:00.000Z",
-      "updatedAt": "2024-01-01T00:00:00.000Z"
+      "updatedAt": "2024-01-01T00:00:00.000Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "id": "prod_002",
@@ -154,7 +161,14 @@
       "isActive": true,
       "isFeatured": false,
       "createdAt": "2024-02-01T00:00:00.000Z",
-      "updatedAt": "2024-02-01T00:00:00.000Z"
+      "updatedAt": "2024-02-01T00:00:00.000Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "id": "prod_003",
@@ -208,7 +222,14 @@
       "isActive": true,
       "isFeatured": false,
       "createdAt": "2024-03-01T00:00:00.000Z",
-      "updatedAt": "2024-03-01T00:00:00.000Z"
+      "updatedAt": "2024-03-01T00:00:00.000Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "id": "prod_004",
@@ -270,7 +291,14 @@
       "isActive": true,
       "isFeatured": false,
       "createdAt": "2024-04-01T00:00:00.000Z",
-      "updatedAt": "2024-04-01T00:00:00.000Z"
+      "updatedAt": "2024-04-01T00:00:00.000Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "id": "prod_005",
@@ -340,7 +368,14 @@
       "isActive": true,
       "isFeatured": true,
       "createdAt": "2024-05-01T00:00:00.000Z",
-      "updatedAt": "2024-05-01T00:00:00.000Z"
+      "updatedAt": "2024-05-01T00:00:00.000Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "id": "prod_006",
@@ -404,7 +439,14 @@
       "isActive": true,
       "isFeatured": true,
       "createdAt": "2024-06-01T00:00:00.000Z",
-      "updatedAt": "2024-06-01T00:00:00.000Z"
+      "updatedAt": "2024-06-01T00:00:00.000Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "id": "prod_007",
@@ -475,7 +517,14 @@
       "isActive": true,
       "isFeatured": true,
       "createdAt": "2024-07-01T00:00:00.000Z",
-      "updatedAt": "2024-07-01T00:00:00.000Z"
+      "updatedAt": "2024-07-01T00:00:00.000Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "id": "prod_008",
@@ -539,7 +588,14 @@
       "isActive": true,
       "isFeatured": false,
       "createdAt": "2024-08-01T00:00:00.000Z",
-      "updatedAt": "2024-08-01T00:00:00.000Z"
+      "updatedAt": "2024-08-01T00:00:00.000Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "id": "prod_009",
@@ -602,7 +658,14 @@
       "isActive": true,
       "isFeatured": true,
       "createdAt": "2024-09-01T00:00:00.000Z",
-      "updatedAt": "2024-09-01T00:00:00.000Z"
+      "updatedAt": "2024-09-01T00:00:00.000Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "id": "prod_010",
@@ -672,7 +735,14 @@
       "isActive": true,
       "isFeatured": true,
       "createdAt": "2024-10-01T00:00:00.000Z",
-      "updatedAt": "2024-10-01T00:00:00.000Z"
+      "updatedAt": "2024-10-01T00:00:00.000Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "id": "prod_011",
@@ -723,7 +793,14 @@
       "isActive": false,
       "isFeatured": false,
       "createdAt": "2024-11-01T00:00:00.000Z",
-      "updatedAt": "2024-11-01T00:00:00.000Z"
+      "updatedAt": "2024-11-01T00:00:00.000Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "slug": "sdsd",
@@ -745,7 +822,14 @@
       "isFeatured": false,
       "id": "prod_motlwtwq4yl37d",
       "createdAt": "2026-05-06T05:18:28.970Z",
-      "updatedAt": "2026-05-06T05:19:19.763Z"
+      "updatedAt": "2026-05-06T05:19:19.763Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
     },
     {
       "slug": "aa",
@@ -763,11 +847,245 @@
         "https://picsum.photos/seed/1778044770200/600/400"
       ],
       "badges": [],
-      "isActive": true,
+      "isActive": false,
       "isFeatured": false,
       "id": "prod_motlyd55vqox03",
       "createdAt": "2026-05-06T05:19:40.553Z",
-      "updatedAt": "2026-05-06T05:19:40.553Z"
+      "updatedAt": "2026-05-15T05:59:25.706Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
+    },
+    {
+      "slug": "ac",
+      "name": "ac",
+      "shortDesc": "cc",
+      "description": "dd",
+      "category": "folding-4mouth",
+      "categoryName": "folding-4mouth",
+      "price": 1,
+      "originalPrice": 0,
+      "color": "#7B5DA8",
+      "features": [],
+      "options": {},
+      "images": [
+        "https://picsum.photos/seed/1778127656230/600/400"
+      ],
+      "badges": [],
+      "isActive": false,
+      "isFeatured": false,
+      "id": "prod_mouzathg4m868y",
+      "createdAt": "2026-05-07T04:21:02.788Z",
+      "updatedAt": "2026-05-15T05:59:28.539Z",
+      "bodyColors": [],
+      "tableColors": [],
+      "tileSizes": [],
+      "tileCounts": [],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": []
+    },
+    {
+      "slug": "qq",
+      "name": "qq",
+      "shortDesc": "qqa",
+      "description": "qqc",
+      "category": "folding-4mouth",
+      "categoryName": "folding-4mouth",
+      "price": 0,
+      "originalPrice": 0,
+      "color": "#7B5DA8",
+      "features": [
+        "可遮挡"
+      ],
+      "options": {},
+      "images": [],
+      "badges": [],
+      "isActive": true,
+      "isFeatured": false,
+      "bodyColors": [
+        {
+          "name": "紫色",
+          "value": "#6545b0"
+        }
+      ],
+      "tableColors": [
+        {
+          "name": "蓝色",
+          "value": "#1a6889"
+        }
+      ],
+      "tileSizes": [
+        {
+          "value": "44号",
+          "priceAdjust": 0
+        },
+        {
+          "value": "42号",
+          "priceAdjust": 0
+        },
+        {
+          "value": "45号",
+          "priceAdjust": 0
+        }
+      ],
+      "tileCounts": [
+        {
+          "value": "144",
+          "priceAdjust": 0
+        },
+        {
+          "value": "152",
+          "priceAdjust": 0
+        },
+        {
+          "value": "120",
+          "priceAdjust": 0
+        },
+        {
+          "value": "112",
+          "priceAdjust": 0
+        },
+        {
+          "value": "108",
+          "priceAdjust": 0
+        },
+        {
+          "value": "136",
+          "priceAdjust": 0
+        }
+      ],
+      "tileColorOptions": [],
+      "legModels": [],
+      "shippingMethods": [
+        "sea"
+      ],
+      "id": "prod_mp6im89ux8tjfv",
+      "createdAt": "2026-05-15T06:07:15.810Z",
+      "updatedAt": "2026-05-15T06:07:15.810Z"
+    },
+    {
+      "slug": "ee",
+      "name": "ee",
+      "description": "hh",
+      "category": "folding-4mouth",
+      "price": 999,
+      "color": "#C41E3A",
+      "features": [],
+      "images": [
+        "/uploads/1778828324023-99650f2f41a44227.jpg"
+      ],
+      "badges": [],
+      "isActive": true,
+      "isFeatured": false,
+      "bodyColors": [
+        {
+          "name": "月光白",
+          "value": "#f0eff0"
+        },
+        {
+          "name": "香槟金",
+          "value": "#e0cf1a"
+        },
+        {
+          "name": "深空灰",
+          "value": "#61586f"
+        },
+        {
+          "name": "贵族蓝",
+          "value": "#6a73b9"
+        },
+        {
+          "name": "琥珀橙",
+          "value": "#b8ba40"
+        }
+      ],
+      "tableColors": [
+        {
+          "name": "绿色",
+          "value": "#1F6B3F"
+        },
+        {
+          "name": "灰色",
+          "value": "#677274"
+        }
+      ],
+      "tileSizes": [
+        {
+          "value": "40号",
+          "priceAdjust": 0
+        },
+        {
+          "value": "42号",
+          "priceAdjust": 0
+        },
+        {
+          "value": "44号",
+          "priceAdjust": 0
+        },
+        {
+          "value": "46号-166张",
+          "priceAdjust": 10
+        }
+      ],
+      "tileCounts": [
+        {
+          "value": "108",
+          "priceAdjust": 0
+        },
+        {
+          "value": "112",
+          "priceAdjust": 0
+        },
+        {
+          "value": "120",
+          "priceAdjust": 0
+        },
+        {
+          "value": "136",
+          "priceAdjust": 0
+        },
+        {
+          "value": "144",
+          "priceAdjust": 0
+        },
+        {
+          "value": "152",
+          "priceAdjust": 15
+        }
+      ],
+      "tileColorOptions": [
+        {
+          "name": "白玉",
+          "image": "/uploads/1778829681709-b9add44a14a373d6.jpg",
+          "description": "",
+          "priceAdjust": 0
+        }
+      ],
+      "legModels": [
+        {
+          "name": "双折叠",
+          "image": "",
+          "description": "",
+          "priceAdjust": 0
+        },
+        {
+          "name": "单折叠",
+          "image": "",
+          "description": "",
+          "priceAdjust": 0
+        }
+      ],
+      "shippingMethods": [
+        "sea"
+      ],
+      "id": "prod_mp6kn6fl3v7n38",
+      "createdAt": "2026-05-15T07:03:59.313Z",
+      "updatedAt": "2026-05-15T08:07:48.842Z"
     }
   ],
   "orders": [

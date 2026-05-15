@@ -94,20 +94,150 @@ function hasOptionItems(value: unknown): value is RawOption[] {
   );
 }
 
-function withDefaultOptions(options: unknown): ProductOptions {
+const SHIPPING_META: Record<string, { name: string; eta: string; details: string[] }> = {
+  pickup: {
+    name: '仓库自提',
+    eta: '库存现货，预约后当天可提货',
+    details: ['美国本土现货', '下单后2个工作日内可自提', '现场查验后再提货'],
+  },
+  fedex: {
+    name: 'FedEx 派送',
+    eta: '现货产品 3-5 个工作日送达',
+    details: ['美国48州包邮', 'FedEx 派送上门', '下单后2个工作日内发货'],
+  },
+  sea: {
+    name: '国内海运',
+    eta: '下单后48小时内发货，海运约30-45个工作日到达',
+    details: [
+      '美国48州包邮，大件物流卡车派送到门',
+      '国内仓库48小时内打木架分拣出库',
+      '货物入仓之前支持无理由退换',
+    ],
+  },
+};
+
+function slugifyCode(value: string, fallback: string) {
+  const normalized = value
+    .toLowerCase()
+    .replace(/[^a-z0-9\u4e00-\u9fa5]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return normalized || fallback;
+}
+
+function buildOptionsFromAdminProduct(product: db.Product): ProductOptions {
+  const opts: ProductOptions = {};
+
+  if (Array.isArray(product.bodyColors) && product.bodyColors.length > 0) {
+    opts.body_color = product.bodyColors.map((c, i) => ({
+      code: slugifyCode(c.name, `body-${i + 1}`),
+      name: c.name,
+      swatchColor: c.value,
+      price_adjust: 0,
+      sale_adjust: 0,
+    }));
+  }
+
+  if (Array.isArray(product.tableColors) && product.tableColors.length > 0) {
+    opts.table_color = product.tableColors.map((c, i) => ({
+      code: slugifyCode(c.name, `table-${i + 1}`),
+      name: c.name,
+      swatchColor: c.value,
+      price_adjust: 0,
+      sale_adjust: 0,
+    }));
+  }
+
+  if (Array.isArray(product.tileSizes) && product.tileSizes.length > 0) {
+    opts.tile_size = product.tileSizes.map((s, i) => {
+      const val = typeof s === 'string' ? s : s.value;
+      const price = typeof s === 'object' ? (s.priceAdjust ?? 0) : 0;
+      return {
+        code: slugifyCode(val, `size-${i + 1}`),
+        label: val,
+        price_adjust: price,
+        sale_adjust: price,
+      };
+    });
+  }
+
+  if (Array.isArray(product.tileCounts) && product.tileCounts.length > 0) {
+    opts.tile_count = product.tileCounts.map((c) => {
+      const val = typeof c === 'string' ? c : c.value;
+      const price = typeof c === 'object' ? (c.priceAdjust ?? 0) : 0;
+      return {
+        code: val,
+        label: `${val}张`,
+        price_adjust: price,
+        sale_adjust: price,
+      };
+    });
+  }
+
+  if (Array.isArray(product.tileColorOptions) && product.tileColorOptions.length > 0) {
+    opts.tile_color = product.tileColorOptions.map((c, i) => ({
+      code: slugifyCode(c.name, `tile-${i + 1}`),
+      name: c.name,
+      desc: c.description,
+      imageUrl: c.image || undefined,
+      price_adjust: c.priceAdjust ?? 0,
+      sale_adjust: c.priceAdjust ?? 0,
+    }));
+  }
+
+  if (Array.isArray(product.legModels) && product.legModels.length > 0) {
+    opts.leg_type = product.legModels.map((c, i) => ({
+      code: slugifyCode(c.name, `leg-${i + 1}`),
+      name: c.name,
+      desc: c.description,
+      imageUrl: c.image || undefined,
+      price_adjust: c.priceAdjust ?? 0,
+      sale_adjust: c.priceAdjust ?? 0,
+    }));
+  }
+
+  if (Array.isArray(product.shippingMethods) && product.shippingMethods.length > 0) {
+    opts.shipping = product.shippingMethods.map((code) => {
+      const meta = SHIPPING_META[code];
+      return {
+        code,
+        name: meta?.name ?? code,
+        desc: '免运费',
+        eta: meta?.eta,
+        details: meta?.details,
+        price_adjust: 0,
+        sale_adjust: 0,
+      };
+    });
+  }
+
+  return opts;
+}
+
+function withDefaultOptions(
+  options: unknown,
+  adminOptions?: ProductOptions,
+): ProductOptions {
   const current = options as ProductOptions | undefined;
+  const pick = (
+    key: keyof ProductOptions,
+  ): RawOption[] => {
+    if (hasOptionItems(adminOptions?.[key])) return adminOptions![key]!;
+    if (hasOptionItems(current?.[key])) return current![key]!;
+    return defaultProductOptions[key]!;
+  };
   return {
-    body_color: hasOptionItems(current?.body_color) ? current.body_color : defaultProductOptions.body_color,
-    table_color: hasOptionItems(current?.table_color) ? current.table_color : defaultProductOptions.table_color,
-    tile_size: hasOptionItems(current?.tile_size) ? current.tile_size : defaultProductOptions.tile_size,
-    tile_count: hasOptionItems(current?.tile_count) ? current.tile_count : defaultProductOptions.tile_count,
-    tile_color: hasOptionItems(current?.tile_color) ? current.tile_color : defaultProductOptions.tile_color,
-    leg_type: hasOptionItems(current?.leg_type) ? current.leg_type : defaultProductOptions.leg_type,
-    shipping: hasOptionItems(current?.shipping) ? current.shipping : defaultProductOptions.shipping,
+    body_color: pick('body_color'),
+    table_color: pick('table_color'),
+    tile_size: pick('tile_size'),
+    tile_count: pick('tile_count'),
+    tile_color: pick('tile_color'),
+    leg_type: pick('leg_type'),
+    shipping: pick('shipping'),
   };
 }
 
 function toStorefrontProduct(product: db.Product): Product {
+  const adminOptions = buildOptionsFromAdminProduct(product);
   return {
     slug: product.slug,
     name: product.name,
@@ -120,9 +250,13 @@ function toStorefrontProduct(product: db.Product): Product {
     badges: product.badges,
     color: product.color,
     features: product.features.map((feature) => ({ title: feature, desc: '' })),
-    options: withDefaultOptions(product.options),
+    options: withDefaultOptions(product.options, adminOptions),
     images: product.images,
     url: `/product/${product.slug}`,
+    shippingMethods:
+      Array.isArray(product.shippingMethods) && product.shippingMethods.length > 0
+        ? product.shippingMethods
+        : ['pickup', 'fedex', 'sea'],
   };
 }
 

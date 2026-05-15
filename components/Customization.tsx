@@ -13,11 +13,13 @@ import {
   X,
   MessageCircle,
 } from 'lucide-react';
-import { categories, getProduct, getProductsByCategory } from '@/lib/products';
+import type { Product } from '@/lib/products';
 import { getStepsForProduct } from '@/lib/configurator';
 import type { ConfigStep, ConfigOption } from '@/lib/configurator';
 import { STEP_LABEL } from '@/lib/configurator';
 import ProductImage from './ProductImage';
+
+type CustomizationCategory = { slug: string; name: string; desc: string };
 
 // ─── 头像与气泡 ──────────────────────────────────────────────
 function BotAvatar() {
@@ -172,15 +174,26 @@ function CardOption({
         active ? 'border-2 border-wine shadow-md' : 'border-gold/40 hover:border-gold'
       }`}
     >
-      <div
-        className="relative aspect-[4/3] w-full"
-        style={{
-          background: `linear-gradient(135deg, ${opt.imageColor || '#C9B997'} 0%, #f5ead8 100%)`,
-        }}
-      >
-        <div className="absolute inset-0 flex items-center justify-center font-serif text-[14px] text-cream/90 mix-blend-overlay">
-          {opt.label}
-        </div>
+      <div className="relative aspect-[4/3] w-full">
+        {opt.imageUrl ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={opt.imageUrl}
+            alt={opt.label}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div
+            className="h-full w-full"
+            style={{
+              background: `linear-gradient(135deg, ${opt.imageColor || '#C9B997'} 0%, #f5ead8 100%)`,
+            }}
+          >
+            <div className="flex h-full w-full items-center justify-center font-serif text-[14px] text-cream/90 mix-blend-overlay">
+              {opt.label}
+            </div>
+          </div>
+        )}
         {opt.badge === 'recommend' && (
           <span className="absolute right-1.5 top-1.5 inline-flex items-center gap-0.5 rounded bg-gold px-1.5 py-0.5 text-[10px] text-wine-deeper">
             <Star size={8} fill="#5A4080" strokeWidth={0} /> 推荐
@@ -240,6 +253,34 @@ export default function Customization() {
   const [isOpen, setIsOpen] = useState(false);
   const [chatInput, setChatInput] = useState('');
   const [showSuccess, setShowSuccess] = useState(false);
+
+  const [categories, setCategories] = useState<CustomizationCategory[]>([]);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [dataLoading, setDataLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function load() {
+      try {
+        const res = await fetch('/api/storefront');
+        if (!res.ok) throw new Error('fetch failed');
+        const data = await res.json();
+        if (!cancelled) {
+          setCategories(data.categories ?? []);
+          setAllProducts(data.products ?? []);
+        }
+      } catch {
+        // silent
+      } finally {
+        if (!cancelled) setDataLoading(false);
+      }
+    }
+    load();
+    return () => { cancelled = true; };
+  }, []);
+
+  const getProductsByCategory = (slug: string) => allProducts.filter((p) => p.category === slug);
+  const getProduct = (slug: string) => allProducts.find((p) => p.slug === slug);
 
   // 选择流程状态
   const [stage, setStage] = useState<'category' | 'product' | 'config' | 'done'>('category');
@@ -431,6 +472,23 @@ export default function Customization() {
                 您好，我是 <span className="font-medium text-wine">ZHONGQUE 麻将助手</span>，
                 请先选择您想要的麻将机类型
               </BotBubble>
+
+              {dataLoading && (
+                <div className="grid grid-cols-2 gap-2">
+                  {[0, 1, 2, 3].map((i) => (
+                    <div
+                      key={i}
+                      className="aspect-[4/3] w-full animate-pulse rounded-lg border border-gold/30 bg-gold/10"
+                    />
+                  ))}
+                </div>
+              )}
+
+              {!dataLoading && categories.length === 0 && (
+                <div className="rounded-lg border border-gold/30 bg-white px-3 py-4 text-center text-[12px] text-wine-dark/70">
+                  暂无可选商品分类，请稍后再试。
+                </div>
+              )}
 
               <div className="grid grid-cols-2 gap-2">
                 {categories.map((cat) => (

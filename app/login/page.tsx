@@ -2,12 +2,16 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Eye, EyeOff, Mail, Lock, ArrowRight, ShieldCheck, Loader2, CheckCircle } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { Eye, EyeOff, Mail, Lock, ArrowRight, ShieldCheck, Loader2, CheckCircle, AlertTriangle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function LoginPage() {
   const { signIn } = useAuth();
-  
+  const searchParams = useSearchParams();
+  const nextPath = searchParams.get('next') || '';
+  const denied = searchParams.get('denied') === '1';
+
   const [showPwd, setShowPwd] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,9 +33,9 @@ export default function LoginPage() {
     } else {
       setSuccess(true);
       setLoading(false);
-      // Redirect after short delay
+      const target = nextPath && nextPath.startsWith('/') ? nextPath : '/profile';
       setTimeout(() => {
-        window.location.href = '/profile';
+        window.location.href = target;
       }, 500);
     }
   };
@@ -89,6 +93,24 @@ export default function LoginPage() {
             <p className="mt-1 text-[13px] text-wine-dark/60">
               Sign in to your ZHONGQUE account
             </p>
+
+            {/* 需要管理员权限提示 */}
+            {denied && (
+              <div className="mt-6 p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-700 text-sm flex items-start gap-2">
+                <AlertTriangle size={16} className="mt-0.5 shrink-0" />
+                <span>
+                  该页面仅限管理员访问，请使用管理员账户登录。
+                </span>
+              </div>
+            )}
+
+            {/* 需要登录提示 */}
+            {!denied && nextPath && (
+              <div className="mt-6 p-3 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 text-sm flex items-start gap-2">
+                <Lock size={16} className="mt-0.5 shrink-0" />
+                <span>请先登录后再访问 {nextPath}</span>
+              </div>
+            )}
 
             {/* 错误提示 */}
             {error && (
@@ -199,7 +221,7 @@ export default function LoginPage() {
             {/* 演示账号 */}
             <div className="mt-6 p-4 rounded-lg bg-gold-soft/30 border border-gold/30">
               <p className="text-wine-dark/70 text-xs text-center mb-2">演示账号</p>
-              <p className="text-wine-dark/60 text-xs text-center">admin@zhongque.com / admin123</p>
+              <p className="text-wine-dark/60 text-xs text-center">admin@zhontre.com.cn / admin123</p>
             </div>
 
             <p className="mt-8 text-center text-[13px] text-wine-dark/70">

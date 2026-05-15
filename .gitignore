@@ -12,3 +12,7 @@ out
 
 /lib/generated/prisma
 public/img/hero.mp4
+
+# 后台上传的用户文件，不入库
+public/uploads/*
+!public/uploads/.gitkeep

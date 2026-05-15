@@ -17,6 +17,7 @@ export type ConfigOption = {
   badge?: 'recommend' | 'common' | 'free';
   swatch?: string;
   imageColor?: string;
+  imageUrl?: string;
 };
 
 export type ConfigStep = {
@@ -109,12 +110,18 @@ function mapOption(stepKey: string, raw: RawOption): ConfigOption {
   if (raw.popular) opt.badge = 'common';
   if (raw.recommended) opt.badge = 'recommend';
 
-  // 视觉占位
-  if (stepKey === 'body_color') opt.swatch = BODY_SWATCH[raw.code] ?? '#999';
-  else if (stepKey === 'table_color') opt.swatch = TABLE_SWATCH[raw.code] ?? '#999';
-  else if (stepKey === 'tile_color') opt.imageColor = TILE_SWATCH[raw.code] ?? '#999';
-  else if (stepKey === 'leg_type') opt.imageColor = LEG_SWATCH[raw.code] ?? '#999';
-  else if (stepKey === 'shipping') {
+  // 视觉：优先使用后台填写的色值/上传的真实图片，回退到内置 swatch 表
+  if (stepKey === 'body_color') {
+    opt.swatch = raw.swatchColor || BODY_SWATCH[raw.code] || '#999';
+  } else if (stepKey === 'table_color') {
+    opt.swatch = raw.swatchColor || TABLE_SWATCH[raw.code] || '#999';
+  } else if (stepKey === 'tile_color') {
+    if (raw.imageUrl) opt.imageUrl = raw.imageUrl;
+    opt.imageColor = TILE_SWATCH[raw.code] ?? '#999';
+  } else if (stepKey === 'leg_type') {
+    if (raw.imageUrl) opt.imageUrl = raw.imageUrl;
+    opt.imageColor = LEG_SWATCH[raw.code] ?? '#999';
+  } else if (stepKey === 'shipping') {
     // 把 details 拼到 sub 中（每行一条）
     const lines = [raw.eta, ...(raw.details ?? [])].filter(Boolean) as string[];
     if (lines.length) opt.sub = lines.join('\n');

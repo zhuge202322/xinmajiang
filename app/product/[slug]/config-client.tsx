@@ -177,15 +177,25 @@ function CardOption({
         active ? 'border-2 border-wine shadow-md' : 'border-gold/40 hover:border-gold'
       }`}
     >
-      <div
-        className="relative aspect-[4/3] w-full"
-        style={{
-          background: `linear-gradient(135deg, ${opt.imageColor || '#C9B997'} 0%, #f5ead8 100%)`,
-        }}
-      >
-        <div className="absolute inset-0 flex items-center justify-center font-serif text-[18px] text-cream/90 mix-blend-overlay">
-          {opt.label}
-        </div>
+      <div className="relative aspect-[4/3] w-full">
+        {opt.imageUrl ? (
+          <img
+            src={opt.imageUrl}
+            alt={opt.label}
+            className="h-full w-full object-cover"
+          />
+        ) : (
+          <div
+            className="h-full w-full"
+            style={{
+              background: `linear-gradient(135deg, ${opt.imageColor || '#C9B997'} 0%, #f5ead8 100%)`,
+            }}
+          >
+            <div className="flex h-full w-full items-center justify-center font-serif text-[18px] text-cream/90 mix-blend-overlay">
+              {opt.label}
+            </div>
+          </div>
+        )}
         {opt.badge === 'recommend' && (
           <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded bg-gold px-2 py-0.5 text-[11px] text-wine-deeper">
             <Star size={10} fill="#5A4080" strokeWidth={0} /> 推荐

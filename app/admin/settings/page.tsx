@@ -1,11 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { Save, Building, CreditCard, Bell, Shield } from 'lucide-react';
+import { Save, Building, CreditCard, Bell, Shield, KeyRound, Eye, EyeOff, CheckCircle, AlertTriangle, Loader2 } from 'lucide-react';
 
 export default function AdminSettingsPage() {
   const [activeTab, setActiveTab] = useState('general');
   const [saving, setSaving] = useState(false);
+
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showCurrent, setShowCurrent] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [pwLoading, setPwLoading] = useState(false);
+  const [pwError, setPwError] = useState('');
+  const [pwSuccess, setPwSuccess] = useState(false);
 
   const tabs = [
     { id: 'general', label: '通用设置', icon: Building },
@@ -16,9 +25,45 @@ export default function AdminSettingsPage() {
 
   async function handleSave() {
     setSaving(true);
-    // Simulate save
     await new Promise(resolve => setTimeout(resolve, 1000));
     setSaving(false);
+  }
+
+  async function handleChangePassword(e: React.FormEvent) {
+    e.preventDefault();
+    setPwError('');
+    setPwSuccess(false);
+
+    if (newPassword !== confirmPassword) {
+      setPwError('两次输入的新密码不一致');
+      return;
+    }
+    if (newPassword.length < 6) {
+      setPwError('新密码至少 6 位');
+      return;
+    }
+
+    setPwLoading(true);
+    try {
+      const res = await fetch('/api/admin/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPassword, newPassword, confirmPassword }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setPwError(data.error || '修改失败');
+      } else {
+        setPwSuccess(true);
+        setCurrentPassword('');
+        setNewPassword('');
+        setConfirmPassword('');
+      }
+    } catch {
+      setPwError('网络错误');
+    } finally {
+      setPwLoading(false);
+    }
   }
 
   return (
@@ -153,6 +198,102 @@ export default function AdminSettingsPage() {
               <div>
                 <h2 className="text-lg font-semibold mb-4">安全设置</h2>
               </div>
+
+              {/* 修改管理员密码 */}
+              <div className="rounded-lg border border-gray-200 p-5">
+                <div className="mb-4 flex items-center gap-2">
+                  <KeyRound size={18} className="text-purple-700" />
+                  <h3 className="font-medium text-gray-900">修改管理员密码</h3>
+                </div>
+                <p className="mb-4 text-sm text-gray-500">
+                  修改成功后，请使用新密码重新登录。
+                </p>
+
+                {pwError && (
+                  <div className="mb-4 flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+                    <AlertTriangle size={16} className="mt-0.5 shrink-0" />
+                    <span>{pwError}</span>
+                  </div>
+                )}
+                {pwSuccess && (
+                  <div className="mb-4 flex items-start gap-2 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-700">
+                    <CheckCircle size={16} className="mt-0.5 shrink-0" />
+                    <span>密码已成功修改，下次登录请使用新密码。</span>
+                  </div>
+                )}
+
+                <form onSubmit={handleChangePassword} className="space-y-4">
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-gray-700">当前密码</label>
+                    <div className="flex items-center rounded-lg border border-gray-300 bg-white px-3 focus-within:ring-2 focus-within:ring-purple-500">
+                      <input
+                        type={showCurrent ? 'text' : 'password'}
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        placeholder="输入当前密码"
+                        autoComplete="current-password"
+                        required
+                        className="w-full bg-transparent py-2 text-sm focus:outline-none"
+                      />
+                      <button type="button" onClick={() => setShowCurrent((v) => !v)} className="text-gray-400 hover:text-gray-600">
+                        {showCurrent ? <EyeOff size={16} /> : <Eye size={16} />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-gray-700">新密码</label>
+                    <div className="flex items-center rounded-lg border border-gray-300 bg-white px-3 focus-within:ring-2 focus-within:ring-purple-500">
+                      <input
+                        type={showNew ? 'text' : 'password'}
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="至少 6 位"
+                        autoComplete="new-password"
+                        minLength={6}
+                        required
+                        className="w-full bg-transparent py-2 text-sm focus:outline-none"
+                      />
+                      <button type="button" onClick={() => setShowNew((v) => !v)} className="text-gray-400 hover:text-gray-600">
+                        {showNew ? <EyeOff size={16} /> : <Eye size={16} />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="mb-1 block text-sm font-medium text-gray-700">确认新密码</label>
+                    <input
+                      type={showNew ? 'text' : 'password'}
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder="再次输入新密码"
+                      autoComplete="new-password"
+                      minLength={6}
+                      required
+                      className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={pwLoading}
+                    className="inline-flex items-center gap-2 rounded-lg bg-purple-700 px-5 py-2 text-sm text-white hover:bg-purple-800 disabled:opacity-50"
+                  >
+                    {pwLoading ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" />
+                        修改中...
+                      </>
+                    ) : (
+                      <>
+                        <KeyRound size={16} />
+                        确认修改密码
+                      </>
+                    )}
+                  </button>
+                </form>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">管理员 API 密钥</label>
                 <input

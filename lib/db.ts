@@ -18,6 +18,25 @@ export type User = {
   createdAt: string;
 };
 
+export type ColorOption = {
+  name: string;
+  value: string;
+};
+
+export type PricedOption = {
+  value: string;
+  priceAdjust: number;
+};
+
+export type MediaOption = {
+  name: string;
+  image: string;
+  description?: string;
+  priceAdjust?: number;
+};
+
+export type ShippingMethodCode = 'pickup' | 'fedex' | 'sea';
+
 export type Product = {
   id: string;
   slug: string;
@@ -35,6 +54,13 @@ export type Product = {
   badges: string[];
   isActive: boolean;
   isFeatured: boolean;
+  bodyColors: ColorOption[];
+  tableColors: ColorOption[];
+  tileSizes: PricedOption[];
+  tileCounts: PricedOption[];
+  tileColorOptions: MediaOption[];
+  legModels: MediaOption[];
+  shippingMethods: ShippingMethodCode[];
   createdAt: string;
   updatedAt: string;
 };
@@ -99,11 +125,64 @@ export const getDatabase = readDatabase;
 async function readDatabase(): Promise<Database> {
   try {
     const data = await fs.readFile(DB_PATH, 'utf-8');
-    return JSON.parse(data);
+    const parsed = JSON.parse(data) as Database;
+    parsed.products = (parsed.products || []).map(normalizeProduct);
+    return parsed;
   } catch (error) {
     // If file doesn't exist, return empty structure
     return { users: [], products: [], orders: [], addresses: [] };
   }
+}
+
+function normalizePricedOption(item: unknown): PricedOption | null {
+  if (typeof item === 'string') {
+    return { value: item, priceAdjust: 0 };
+  }
+  if (item && typeof item === 'object') {
+    const obj = item as Partial<PricedOption> & { code?: string; label?: string };
+    const value = obj.value ?? obj.code ?? obj.label;
+    if (typeof value === 'string' && value.length > 0) {
+      const raw = obj.priceAdjust;
+      const num = typeof raw === 'number' ? raw : Number(raw ?? 0);
+      return { value, priceAdjust: Number.isFinite(num) ? num : 0 };
+    }
+  }
+  return null;
+}
+
+function normalizeMediaOption(item: unknown): MediaOption | null {
+  if (!item || typeof item !== 'object') return null;
+  const obj = item as Partial<MediaOption>;
+  if (typeof obj.name !== 'string') return null;
+  const raw = obj.priceAdjust;
+  const num = typeof raw === 'number' ? raw : Number(raw ?? 0);
+  return {
+    name: obj.name,
+    image: typeof obj.image === 'string' ? obj.image : '',
+    description: typeof obj.description === 'string' ? obj.description : '',
+    priceAdjust: Number.isFinite(num) ? num : 0,
+  };
+}
+
+function normalizeProduct(product: Product): Product {
+  return {
+    ...product,
+    bodyColors: Array.isArray(product.bodyColors) ? product.bodyColors : [],
+    tableColors: Array.isArray(product.tableColors) ? product.tableColors : [],
+    tileSizes: Array.isArray(product.tileSizes)
+      ? (product.tileSizes.map(normalizePricedOption).filter(Boolean) as PricedOption[])
+      : [],
+    tileCounts: Array.isArray(product.tileCounts)
+      ? (product.tileCounts.map(normalizePricedOption).filter(Boolean) as PricedOption[])
+      : [],
+    tileColorOptions: Array.isArray(product.tileColorOptions)
+      ? (product.tileColorOptions.map(normalizeMediaOption).filter(Boolean) as MediaOption[])
+      : [],
+    legModels: Array.isArray(product.legModels)
+      ? (product.legModels.map(normalizeMediaOption).filter(Boolean) as MediaOption[])
+      : [],
+    shippingMethods: Array.isArray(product.shippingMethods) ? product.shippingMethods : [],
+  };
 }
 
 // Write database
@@ -130,9 +209,9 @@ export function hashPassword(password: string): string {
   return crypto.createHash('sha256').update(password).digest('hex');
 }
 
-// Verify password (plain text comparison for simplicity)
+// Verify password (compare hashed)
 export function verifyPassword(password: string, storedPassword: string): boolean {
-  return password === storedPassword;
+  return hashPassword(password) === storedPassword;
 }
 
 // ==================== USER OPERATIONS ====================
@@ -206,6 +285,29 @@ export async function updateUser(id: string, data: Partial<User>): Promise<User 
   
   const { password: _, ...userWithoutPassword } = db.users[index];
   return userWithoutPassword as User;
+}
+
+export async function changeUserPassword(
+  id: string,
+  currentPassword: string,
+  newPassword: string,
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const db = await readDatabase();
+  const index = db.users.findIndex(u => u.id === id);
+  if (index === -1) return { ok: false, error: '用户不存在' };
+
+  const user = db.users[index];
+  if (!verifyPassword(currentPassword, user.password)) {
+    return { ok: false, error: '当前密码不正确' };
+  }
+
+  if (!newPassword || newPassword.length < 6) {
+    return { ok: false, error: '新密码至少 6 位' };
+  }
+
+  db.users[index] = { ...user, password: hashPassword(newPassword) };
+  await writeDatabase(db);
+  return { ok: true };
 }
 
 // ==================== PRODUCT OPERATIONS ====================

@@ -20,6 +20,8 @@ export type RawOption = {
   name?: string;
   label?: string;
   image?: string;
+  imageUrl?: string;
+  swatchColor?: string;
   desc?: string;
   details?: string[];
   eta?: string;
@@ -55,6 +57,7 @@ export type Product = {
   images: string[];
   url: string;
   soon?: boolean;
+  shippingMethods?: ('pickup' | 'fedex' | 'sea')[];
 };
 
 // ──────── 颜色映射（用于色块/卡片的视觉占位） ────────
@@ -175,6 +178,9 @@ export const products: Product[] = (productsJson as RawProduct[])
     const original = price > 0 ? Math.round(price * 1.25) : 0;
     const firstBody = p.options?.body_color?.[0]?.code ?? '';
     const color = BODY_SWATCH[firstBody] ?? '#7B5DA8';
+    const shippingCodes = (p.options?.shipping ?? [])
+      .map((s) => s.code)
+      .filter((c): c is 'pickup' | 'fedex' | 'sea' => c === 'pickup' || c === 'fedex' || c === 'sea');
     return {
       slug: PRODUCT_SLUG_OVERRIDES[p.title] ?? p.slug,
       name: p.title,
@@ -190,6 +196,7 @@ export const products: Product[] = (productsJson as RawProduct[])
       options: p.options ?? {},
       images: p.images ?? [],
       url: p.url,
+      shippingMethods: shippingCodes.length > 0 ? shippingCodes : ['pickup', 'fedex', 'sea'],
     };
   });
 

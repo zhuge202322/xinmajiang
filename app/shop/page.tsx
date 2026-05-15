@@ -1,8 +1,10 @@
 import Link from 'next/link';
-import { ArrowRight, ShieldCheck, Truck, Headphones, Star } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Truck, Headphones } from 'lucide-react';
 import { categories, getAllStorefrontProducts } from '@/lib/storefront-products';
 import PageHero from '@/components/PageHero';
 import ProductImage from '@/components/ProductImage';
+import ProductListWithStockFilter from '@/components/ProductListWithStockFilter';
+import ShopStockToggle from '@/components/ShopStockToggle';
 
 export const metadata = {
   title: '商店 Shop | ZHONGQUE 自动麻将机',
@@ -11,12 +13,21 @@ export const metadata = {
 
 export const dynamic = 'force-dynamic';
 
-export default async function ShopPage() {
+export default async function ShopPage({
+  searchParams,
+}: {
+  searchParams?: { stock?: string };
+}) {
   const products = await getAllStorefrontProducts();
   const validProducts = products.filter(
     (p) => p.slug && !/[^\x00-\x7F]/.test(p.slug) && p.price > 0
   );
-  const featured = validProducts.slice(0, 3);
+
+  const usOnly = searchParams?.stock === 'us';
+  const usProducts = validProducts.filter((p) =>
+    (p.shippingMethods ?? []).includes('pickup'),
+  );
+  const filteredProducts = usOnly ? usProducts : validProducts;
 
   return (
     <main>
@@ -27,6 +38,8 @@ export default async function ShopPage() {
         tone="gold"
       />
 
+      <ShopStockToggle totalCount={validProducts.length} usCount={usProducts.length} />
+
       {/* 分类导航卡片 */}
       <section className="diamond-bg py-16">
         <div className="mx-auto max-w-[1280px] px-8">
@@ -36,16 +49,26 @@ export default async function ShopPage() {
               选择您喜欢的机型
             </h2>
             <div className="mx-auto mt-3 h-px w-16 bg-gold" />
+            {usOnly && (
+              <p className="mt-3 text-[13px] text-wine-dark/60">
+                已开启「仅看美国有货」，无现货机型暂时隐藏。
+              </p>
+            )}
           </div>
 
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {categories.map((c) => {
-              const sample = products.find((p) => p.category === c.slug && p.price > 0 && !/[^\x00-\x7F]/.test(p.slug));
+              const sample = filteredProducts.find(
+                (p) =>
+                  p.category === c.slug &&
+                  p.price > 0 &&
+                  !/[^\x00-\x7F]/.test(p.slug),
+              );
               if (!sample) return null;
               return (
                 <Link
                   key={c.slug}
-                  href={`/product-category/${c.slug}`}
+                  href={`/product-category/${c.slug}${usOnly ? '?stock=us' : ''}`}
                   className="card-gold group overflow-hidden transition-transform hover:-translate-y-1"
                 >
                   <div className="relative aspect-[4/3]">
@@ -74,65 +97,22 @@ export default async function ShopPage() {
         </div>
       </section>
 
-      {/* 热销精选 */}
+      {/* 全部产品（含库存过滤） */}
       <section className="diamond-bg-dark py-16">
         <div className="mx-auto max-w-[1280px] px-8">
           <div className="text-center">
-            <span className="pill-decor-dark">热销精选 Best Sellers</span>
+            <span className="pill-decor-dark">全部产品 All Products</span>
             <h2 className="mt-4 font-serif text-[34px] font-medium text-cream">
-              人气王者，闭眼入也不亏
+              选购您心仪的麻将机
             </h2>
             <div className="mx-auto mt-3 h-px w-16 bg-gold" />
           </div>
 
-          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {featured.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/product/${p.slug}`}
-                className="card-gold overflow-hidden transition-transform hover:-translate-y-1"
-              >
-                <div className="relative aspect-square">
-                  <ProductImage src={p.images[0]} color={p.color} label={p.name} />
-                  {p.badges?.map((b, i) => (
-                    <span
-                      key={b}
-                      className="absolute left-4 rounded-md bg-wine px-3 py-1 text-[12px] text-cream"
-                      style={{ top: 16 + i * 32 }}
-                    >
-                      {b}
-                    </span>
-                  ))}
-                </div>
-                <div className="p-5">
-                  <div className="flex items-center gap-1 text-gold">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={14} fill="#D4AF37" strokeWidth={0} />
-                    ))}
-                    <span className="ml-1 text-[12px] text-wine-dark/60">
-                      4.9 / 1280+ 评价
-                    </span>
-                  </div>
-                  <h3 className="mt-2 font-serif text-[20px] font-medium text-wine-dark">
-                    {p.name}
-                  </h3>
-                  <p className="mt-1 text-[13px] text-wine-dark/70">{p.shortDesc}</p>
-                  <div className="mt-4 flex items-end justify-between">
-                    <div className="flex items-end gap-2">
-                      <span className="text-[13px] text-wine-dark/50 line-through">
-                        ${p.original}
-                      </span>
-                      <span className="font-serif text-[26px] font-medium text-wine">
-                        ${p.price}
-                      </span>
-                    </div>
-                    <span className="inline-flex items-center gap-1 text-[13px] text-wine">
-                      立即查看 <ArrowRight size={14} />
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            ))}
+          <div className="mt-10 rounded-xl bg-cream2/95 p-6 md:p-8">
+            <ProductListWithStockFilter
+              products={validProducts}
+              initialUsOnly={usOnly}
+            />
           </div>
         </div>
       </section>
