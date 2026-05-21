@@ -38,12 +38,12 @@ export default function Hero() {
 
   return (
     <section
-      className="relative h-[calc(100vh-60px)] min-h-[560px] w-full overflow-hidden"
+      className="relative flex flex-col md:block md:h-[calc(100vh-60px)] md:min-h-[560px] w-full overflow-hidden bg-wine-deeper"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       {/* 轮播底图层（淡入淡出） */}
-      <div className="absolute inset-0">
+      <div className="relative h-[260px] sm:h-[320px] md:h-full md:absolute md:inset-0 w-full shrink-0">
         {slides.map((src, i) => (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -56,36 +56,35 @@ export default function Hero() {
             loading={i === 0 ? 'eager' : 'lazy'}
           />
         ))}
+        {/* 暗化叠层，提升文字可读性 */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/35 to-black/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
       </div>
 
-      {/* 暗化叠层，提升文字可读性 */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/35 to-black/10" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+      {/* 装饰圆环 (仅桌面端显示) */}
+      <div className="pointer-events-none absolute left-12 top-16 hidden h-44 w-44 rounded-full border border-gold/40 md:block" />
+      <div className="pointer-events-none absolute left-[120px] top-[110px] hidden h-px w-44 rotate-45 bg-gold/40 md:block" />
 
-      {/* 装饰圆环 */}
-      <div className="pointer-events-none absolute left-12 top-16 h-44 w-44 rounded-full border border-gold/40" />
-      <div className="pointer-events-none absolute left-[120px] top-[110px] h-px w-44 rotate-45 bg-gold/40" />
-
-      {/* 文案层（保留原内容） */}
-      <div className="relative z-10 mx-auto flex h-full max-w-[1280px] items-center px-8">
-        <div className="flex max-w-[640px] flex-col">
-          <span className="pill-decor-dark mb-6 self-start">
+      {/* 文案层 */}
+      <div className="relative z-10 mx-auto flex flex-1 flex-col justify-center px-6 py-10 md:absolute md:inset-0 md:h-full md:max-w-[1280px] md:flex-row md:items-center md:px-8 md:py-0">
+        <div className="flex w-full max-w-[640px] flex-col">
+          <span className="pill-decor-dark mb-4 self-start md:mb-6">
             匠心之造 · 品质传承
           </span>
 
-          <h1 className="font-serif text-[56px] font-medium leading-[1.15] text-cream drop-shadow-lg">
+          <h1 className="font-serif text-[36px] sm:text-[42px] md:text-[56px] font-medium leading-[1.2] text-cream drop-shadow-lg">
             ZHONGQUE，重新定义
             <br />
             海外华人的
             <span className="text-gradient">麻将体验</span>
           </h1>
 
-          <p className="mt-6 text-[16px] text-cream/90 drop-shadow">
+          <p className="mt-4 text-[14px] md:text-[16px] text-cream/90 drop-shadow md:mt-6">
             源头工厂直供 <span className="mx-2 text-gold">|</span> 支持全美派送
             <span className="mx-2 text-gold">|</span> 仓库现货自提
           </p>
 
-          <div className="mt-10 grid w-full max-w-[560px] grid-cols-2 gap-3">
+          <div className="mt-8 grid w-full max-w-[560px] grid-cols-1 sm:grid-cols-2 gap-3 md:mt-10 md:grid-cols-2">
             <Link href="/shop" className="btn-wine flex items-center justify-center px-4 py-3">
               <LayoutGrid size={18} /> 浏览全系产品
             </Link>
@@ -100,7 +99,7 @@ export default function Hero() {
             </button>
             <button
               onClick={() => setVideoOpen(true)}
-              className="btn-wine-outline flex items-center justify-center px-4 py-3"
+              className="btn-wine-outline flex items-center justify-center px-4 py-3 bg-white/10 md:bg-white text-cream md:text-wine-deeper border-white/30 md:border-wine-dark hover:bg-white/20 md:hover:bg-white"
             >
               <Video size={18} /> 查看视频
             </button>
