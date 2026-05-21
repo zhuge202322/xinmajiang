@@ -82,7 +82,7 @@ function normalize(product: any): ProductFormState {
       ? (product.legModels.map(toMediaOption).filter(Boolean) as MediaOption[])
       : [],
     shippingMethods: Array.isArray(product.shippingMethods)
-      ? (product.shippingMethods.filter((c: any) => VALID_SHIPPING.includes(c)) as ShippingMethodCode[])
+      ? (product.shippingMethods.map(toPricedOption).filter((c: PricedOption | null) => c && VALID_SHIPPING.includes(c.value as any)) as PricedOption[])
       : [],
   };
 }

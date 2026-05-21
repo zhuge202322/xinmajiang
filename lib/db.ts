@@ -60,7 +60,7 @@ export type Product = {
   tileCounts: PricedOption[];
   tileColorOptions: MediaOption[];
   legModels: MediaOption[];
-  shippingMethods: ShippingMethodCode[];
+  shippingMethods: PricedOption[];
   createdAt: string;
   updatedAt: string;
 };
@@ -181,7 +181,9 @@ function normalizeProduct(product: Product): Product {
     legModels: Array.isArray(product.legModels)
       ? (product.legModels.map(normalizeMediaOption).filter(Boolean) as MediaOption[])
       : [],
-    shippingMethods: Array.isArray(product.shippingMethods) ? product.shippingMethods : [],
+    shippingMethods: Array.isArray(product.shippingMethods)
+      ? (product.shippingMethods.map(normalizePricedOption).filter(Boolean) as PricedOption[])
+      : [],
   };
 }
 

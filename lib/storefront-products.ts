@@ -196,16 +196,18 @@ function buildOptionsFromAdminProduct(product: db.Product): ProductOptions {
   }
 
   if (Array.isArray(product.shippingMethods) && product.shippingMethods.length > 0) {
-    opts.shipping = product.shippingMethods.map((code) => {
+    opts.shipping = product.shippingMethods.map((s) => {
+      const code = typeof s === 'string' ? s : s.value;
+      const priceAdjust = typeof s === 'object' ? (s.priceAdjust ?? 0) : 0;
       const meta = SHIPPING_META[code];
       return {
         code,
         name: meta?.name ?? code,
-        desc: '免运费',
+        desc: priceAdjust > 0 ? `+$${priceAdjust}` : '免运费',
         eta: meta?.eta,
         details: meta?.details,
-        price_adjust: 0,
-        sale_adjust: 0,
+        price_adjust: priceAdjust,
+        sale_adjust: priceAdjust,
       };
     });
   }
@@ -255,7 +257,7 @@ function toStorefrontProduct(product: db.Product): Product {
     url: `/product/${product.slug}`,
     shippingMethods:
       Array.isArray(product.shippingMethods) && product.shippingMethods.length > 0
-        ? product.shippingMethods
+        ? product.shippingMethods.map((s) => (typeof s === 'string' ? s : s.value)) as ('pickup' | 'fedex' | 'sea')[]
         : ['pickup', 'fedex', 'sea'],
   };
 }

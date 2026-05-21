@@ -52,7 +52,7 @@ async function getMergedProducts() {
         image: c.image ?? '',
         description: c.desc ?? '',
       })),
-      shippingMethods: shippingMethods.length > 0 ? shippingMethods : (['pickup', 'fedex', 'sea'] as db.ShippingMethodCode[]),
+      shippingMethods: (shippingMethods.length > 0 ? shippingMethods : ['pickup', 'fedex', 'sea']).map(c => ({ value: c, priceAdjust: 0 })),
       stock: 999,
       createdAt: product.url,
       updatedAt: product.url,

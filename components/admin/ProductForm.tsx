@@ -39,7 +39,7 @@ export type ProductFormState = {
   tileCounts: PricedOption[];
   tileColorOptions: MediaOption[];
   legModels: MediaOption[];
-  shippingMethods: ShippingMethodCode[];
+  shippingMethods: PricedOption[];
 };
 
 const CATEGORIES = [
@@ -337,22 +337,44 @@ export default function ProductForm({
   };
 
   const toggleShipping = (code: ShippingMethodCode) => {
+    setForm((prev) => {
+      const exists = prev.shippingMethods.some((sm) => sm.value === code);
+      return {
+        ...prev,
+        shippingMethods: exists
+          ? prev.shippingMethods.filter((sm) => sm.value !== code)
+          : [...prev.shippingMethods, { value: code, priceAdjust: 0 }],
+      };
+    });
+  };
+
+  const updateShippingPrice = (code: ShippingMethodCode, priceAdjust: number) => {
     setForm((prev) => ({
       ...prev,
-      shippingMethods: prev.shippingMethods.includes(code)
-        ? prev.shippingMethods.filter((c) => c !== code)
-        : [...prev.shippingMethods, code],
+      shippingMethods: prev.shippingMethods.map((sm) =>
+        sm.value === code ? { ...sm, priceAdjust } : sm
+      ),
     }));
   };
 
   const toggleAllShipping = () => {
     const all = SHIPPING_OPTIONS.map((s) => s.code);
-    const allSelected = all.every((c) => form.shippingMethods.includes(c));
-    setForm({ ...form, shippingMethods: allSelected ? [] : all });
+    const allSelected = all.every((c) => form.shippingMethods.some((sm) => sm.value === c));
+    if (allSelected) {
+      setForm({ ...form, shippingMethods: [] });
+    } else {
+      setForm({
+        ...form,
+        shippingMethods: all.map((code) => {
+          const existing = form.shippingMethods.find((sm) => sm.value === code);
+          return existing || { value: code, priceAdjust: 0 };
+        }),
+      });
+    }
   };
 
   const onlySeaShipping = useMemo(
-    () => form.shippingMethods.length === 1 && form.shippingMethods[0] === 'sea',
+    () => form.shippingMethods.length === 1 && form.shippingMethods[0].value === 'sea',
     [form.shippingMethods],
   );
 
@@ -964,27 +986,48 @@ export default function ProductForm({
             <div className="flex items-baseline justify-between mb-1">
               <h2 className="font-semibold text-gray-900">发货方式</h2>
               <button type="button" onClick={toggleAllShipping} className="text-sm text-purple-700 hover:text-purple-900">
-                {SHIPPING_OPTIONS.every((s) => form.shippingMethods.includes(s.code)) ? '取消全选' : '全选'}
+                {SHIPPING_OPTIONS.every((s) => form.shippingMethods.some((sm) => sm.value === s.code)) ? '取消全选' : '全选'}
               </button>
             </div>
-            <p className="text-sm text-gray-500 mb-4">三种方式均为免运费，可单选或多选。</p>
+            <p className="text-sm text-gray-500 mb-4">三种方式均为免运费（可添加额外收费），可单选或多选。</p>
             <div className="grid grid-cols-1 gap-2">
               {SHIPPING_OPTIONS.map((s) => {
-                const checked = form.shippingMethods.includes(s.code);
+                const existing = form.shippingMethods.find((sm) => sm.value === s.code);
+                const checked = !!existing;
                 return (
-                  <label
+                  <div
                     key={s.code}
-                    className={`flex items-start gap-3 px-4 py-3 rounded-lg border cursor-pointer transition-colors ${
+                    className={`flex items-start gap-3 px-4 py-3 rounded-lg border transition-colors ${
                       checked ? 'border-purple-500 bg-purple-50' : 'border-gray-300 hover:border-purple-300'
                     }`}
                   >
-                    <input type="checkbox" checked={checked} onChange={() => toggleShipping(s.code)} className="mt-1 w-4 h-4 text-purple-600 rounded" />
-                    <div className="flex-1">
-                      <div className="text-sm font-medium text-gray-900">{s.name}</div>
-                      <div className="text-xs text-gray-500 mt-0.5">{s.desc}</div>
-                    </div>
-                    <span className="text-xs text-green-600 font-medium">免运费</span>
-                  </label>
+                    <label className="flex items-start gap-3 flex-1 cursor-pointer mt-1">
+                      <input type="checkbox" checked={checked} onChange={() => toggleShipping(s.code)} className="mt-0.5 w-4 h-4 text-purple-600 rounded" />
+                      <div className="flex-1">
+                        <div className="text-sm font-medium text-gray-900">{s.name}</div>
+                        <div className="text-xs text-gray-500 mt-0.5">{s.desc}</div>
+                      </div>
+                    </label>
+                    {checked && (
+                      <div className="flex items-center gap-2">
+                        <div className="relative w-24">
+                          <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500 text-xs">+$</span>
+                          <input
+                            type="number"
+                            min={0}
+                            step="1"
+                            value={existing.priceAdjust || ''}
+                            onChange={(e) => updateShippingPrice(s.code, parseFloat(e.target.value) || 0)}
+                            placeholder="0"
+                            className="w-full pl-8 pr-2 py-1 text-sm border border-gray-300 rounded focus:ring-2 focus:ring-purple-500"
+                          />
+                        </div>
+                        <span className={`text-xs w-12 text-right ${(existing.priceAdjust ?? 0) > 0 ? 'text-wine font-medium' : 'text-emerald-600'}`}>
+                          {(existing.priceAdjust ?? 0) > 0 ? `+$${existing.priceAdjust}` : '免运费'}
+                        </span>
+                      </div>
+                    )}
+                  </div>
                 );
               })}
             </div>
