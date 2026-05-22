@@ -58,13 +58,23 @@ export default function AdminProductsPage() {
   }
 
   async function handleDelete(id: string) {
+    if (id.startsWith('catalog_')) {
+      alert('系统预置商品无法删除');
+      return;
+    }
     if (!confirm('确定要删除此商品吗？')) return;
     
     try {
-      await fetch(`/api/products?id=${id}`, { method: 'DELETE' });
-      setProducts(products.filter(p => p.id !== id));
+      const res = await fetch(`/api/products?id=${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setProducts(products.filter(p => p.id !== id));
+      } else {
+        const data = await res.json();
+        alert(data.error || '删除失败');
+      }
     } catch (error) {
       console.error('Failed to delete product:', error);
+      alert('网络错误，删除失败');
     }
   }
 
@@ -188,6 +198,11 @@ export default function AdminProductsPage() {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex gap-2">
+                        {product.id.startsWith('catalog_') && (
+                          <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800">
+                            系统预置
+                          </span>
+                        )}
                         {product.isActive && (
                           <span className="inline-flex px-2 py-1 text-xs font-medium rounded-full bg-green-100 text-green-800">
                             在售
@@ -216,13 +231,23 @@ export default function AdminProductsPage() {
                         >
                           <Edit size={18} />
                         </Link>
-                        <button
-                          onClick={() => handleDelete(product.id)}
-                          className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50"
-                          title="删除"
-                        >
-                          <Trash2 size={18} />
-                        </button>
+                        {product.id.startsWith('catalog_') ? (
+                          <button
+                            disabled
+                            className="p-2 text-gray-300 cursor-not-allowed"
+                            title="系统预置商品无法删除"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        ) : (
+                          <button
+                            onClick={() => handleDelete(product.id)}
+                            className="p-2 text-gray-400 hover:text-red-600 rounded-lg hover:bg-red-50"
+                            title="删除"
+                          >
+                            <Trash2 size={18} />
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>
